@@ -1,0 +1,6 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://dostup-world.github.io/sitemap.xml
+
+

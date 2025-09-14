@@ -1,0 +1,841 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>VPN для Smart TV 2025 — настройка на Samsung, LG, Android TV, Apple TV | SAFENET‑VPN</title>
+  <meta name="description" content="Полное руководство по VPN для Smart TV 2025: настройка на Samsung Tizen, LG webOS, Android TV, Apple TV. Обход блокировок, стриминг без ограничений.">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <meta name="robots" content="index,follow">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="VPN для Smart TV 2025 — настройка на всех платформах">
+  <meta property="og:description" content="Исчерпывающее руководство по настройке VPN на Smart TV: все популярные платформы, способы подключения, решение проблем">
+  <meta property="og:url" content="https://dostup-plus.github.io/devices/smart-tv-vpn/">
+  <meta property="og:image" content="https://dostup-plus.github.io/images/og-safenet.jpg">
+  <meta property="og:site_name" content="SAFENET-VPN">
+  
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="SAFENET-VPN — Руководства по VPN" href="/rss.xml">
+  
+  <!-- Yandex.Metrika -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],
+      k.async=1;k.src=r;a.parentNode.insertBefore(k,a)
+    })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(103602117, "init", {clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true});
+  </script>
+  
+  <style>
+    :root{
+      --bg:#0b1020; --card:#11183a; --text:#e9eefc; --muted:#aab3d9;
+      --accent:#4da3ff; --accent-2:#7de2d1; --ok:#29c773; --warn:#ffb020; --err:#ff5c5c;
+      --tv:#9146ff; --streaming:#7de2d1; --device:#7c3aed;
+      --android:#3ddc84; --samsung:#1428a0; --lg:#a50034; --apple:#007aff; --roku:#662d91; --fire:#ff9900;
+    }
+
+    /* КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ ПРОБЛЕМЫ С КНОПКАМИ */
+    .btn.norm::before, .btn-card.norm::before,
+    .btn.alternative::before, .btn-card.alternative::before { 
+      content: none !important; 
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font:16px/1.6 -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+    
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .breadcrumbs{padding:15px 0;color:var(--muted);font-size:.9rem}
+    .breadcrumbs a{color:var(--accent);text-decoration:none}
+    .breadcrumbs a:hover{color:var(--accent-2)}
+    .breadcrumbs span{margin:0 8px}
+    
+    .hero{background:linear-gradient(135deg,var(--card) 0%,#1a2040 100%);padding:60px 0;text-align:center;border-bottom:3px solid var(--tv)}
+    .hero h1{font-size:2.8em;font-weight:700;margin-bottom:20px;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+    .hero-desc{font-size:1.2em;color:var(--muted);margin-bottom:30px;max-width:800px;margin-left:auto;margin-right:auto}
+    .cta-row{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin:30px 0}
+    .trust-line{margin-top:20px;padding:20px;background:rgba(125,226,209,0.1);border-radius:8px;border:1px solid var(--streaming)}
+    
+    .main{padding:40px 0}
+    .content{display:grid;grid-template-columns:1fr 300px;gap:40px;align-items:start}
+    .article{background:var(--card);border-radius:12px;padding:40px;box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+    
+    h2{color:var(--accent);font-size:1.8em;margin:40px 0 20px;padding-bottom:10px;border-bottom:2px solid var(--tv)}
+    h3{color:var(--accent-2);font-size:1.4em;margin:30px 0 15px}
+    h4{color:var(--text);font-size:1.2em;margin:25px 0 12px}
+    
+    p{margin-bottom:20px;line-height:1.7}
+    .highlight{background:linear-gradient(90deg,rgba(145,70,255,0.1) 0%,rgba(125,226,209,0.1) 100%);padding:20px;border-radius:8px;border-left:4px solid var(--tv);margin:25px 0}
+    .warning{background:linear-gradient(90deg,rgba(255,92,92,0.1) 0%,rgba(255,176,32,0.1) 100%);padding:20px;border-radius:8px;border-left:4px solid var(--err);margin:25px 0}
+    
+    .btn{display:inline-block;padding:14px 28px;background:linear-gradient(135deg,var(--accent) 0%,#3b82f6 100%);color:white;text-decoration:none;border-radius:8px;font-weight:600;text-align:center;transition:all 0.3s ease}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(77,163,255,0.4)}
+    .btn.norm{background:linear-gradient(135deg,var(--accent-2) 0%,#5dd4c4 100%);color:#06221d}
+    .btn.norm:hover{box-shadow:0 8px 25px rgba(125,226,209,0.4)}
+    .btn-card{display:block;margin:15px 0}
+    
+    .method-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:25px;margin:30px 0}
+    .method-card{background:linear-gradient(135deg,var(--card) 0%,#1a2040 100%);padding:25px;border-radius:12px;border:1px solid rgba(145,70,255,0.2);transition:all 0.3s ease}
+    .method-card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(145,70,255,0.15)}
+    .method-card h4{color:var(--accent);margin-bottom:15px;display:flex;align-items:center;gap:10px}
+    .method-icon{width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:12px}
+    
+    .tv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:30px;margin:40px 0}
+    .tv-card{background:linear-gradient(135deg,var(--card) 0%,#1a2040 100%);padding:30px;border-radius:16px;border:2px solid rgba(145,70,255,0.2);transition:all 0.3s ease;position:relative;overflow:hidden}
+    .tv-card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(145,70,255,0.2)}
+    .tv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--brand-color)}
+    
+    .tv-header{display:flex;align-items:center;gap:15px;margin-bottom:20px}
+    .tv-logo{width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:16px}
+    .tv-name{font-size:1.5em;font-weight:700;color:var(--text);margin:0}
+    .tv-type{color:var(--muted);font-size:0.9em}
+    
+    .compatibility{margin:15px 0}
+    .compatibility-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(145,70,255,0.1)}
+    .compatibility-label{color:var(--muted);font-size:14px}
+    .compatibility-value{font-weight:bold;font-size:14px}
+    .supported{color:var(--ok)} .limited{color:var(--warn)} .not-supported{color:var(--err)}
+    
+    .methods-list{list-style:none;margin:20px 0}
+    .methods-list li{padding:8px 0;color:var(--text);position:relative;padding-left:25px}
+    .methods-list li::before{content:'▶';position:absolute;left:0;color:var(--accent);font-weight:bold;font-size:12px}
+    .methods-list li.recommended{background:rgba(41,199,115,0.1);border-radius:4px;padding:8px 8px 8px 25px;margin:5px 0}
+    .methods-list li.recommended::before{color:var(--ok)}
+    
+    .steps{counter-reset:step}
+    .step{counter-increment:step;margin:25px 0;padding:25px;background:linear-gradient(135deg,rgba(17,24,58,0.8) 0%,rgba(26,32,64,0.8) 100%);border-radius:12px;border-left:4px solid var(--tv);position:relative}
+    .step::before{content:counter(step);position:absolute;left:-15px;top:20px;background:var(--tv);color:white;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:14px}
+    .step h4{margin-top:0;color:var(--accent)}
+    
+    .comparison-table{width:100%;border-collapse:collapse;margin:30px 0;background:rgba(17,24,58,0.6);border-radius:12px;overflow:hidden}
+    .comparison-table th,.comparison-table td{padding:12px;text-align:center;border-bottom:1px solid rgba(145,70,255,0.1)}
+    .comparison-table th{background:var(--tv);color:white;font-weight:600}
+    .comparison-table .platform-name-col{text-align:left;font-weight:bold}
+    
+    .sidebar{position:sticky;top:20px}
+    .sidebar-card{background:var(--card);border-radius:12px;padding:25px;margin-bottom:20px;box-shadow:0 4px 16px rgba(0,0,0,0.2)}
+    .sidebar-card h3{color:var(--accent);font-size:1.2em;margin-bottom:15px;text-align:center}
+    
+    .faq{margin:50px 0}
+    .faq-item{background:var(--card);border-radius:12px;margin:20px 0;overflow:hidden;border:1px solid rgba(145,70,255,0.1)}
+    .faq-question{padding:20px;cursor:pointer;font-weight:600;color:var(--accent);border-bottom:1px solid rgba(145,70,255,0.1);transition:all 0.3s}
+    .faq-question:hover{background:rgba(145,70,255,0.1)}
+    .faq-answer{padding:25px;line-height:1.7;display:none}
+    .faq-answer.active{display:block}
+    .faq-question::after{content:'▼';float:right;transition:transform 0.3s}
+    .faq-question.active::after{transform:rotate(180deg)}
+    
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;margin:30px 0}
+    .related-link{display:block;padding:15px;background:rgba(145,70,255,0.1);border-radius:8px;color:var(--accent-2);text-decoration:none;transition:all 0.3s;border:1px solid rgba(145,70,255,0.2)}
+    .related-link:hover{background:rgba(145,70,255,0.2);transform:translateY(-2px)}
+    
+    /* Цвета брендов TV */
+    .android-tv{--brand-color:var(--android)} .android-tv .tv-logo{background:var(--android)}
+    .samsung{--brand-color:var(--samsung)} .samsung .tv-logo{background:var(--samsung)}
+    .lg{--brand-color:var(--lg)} .lg .tv-logo{background:var(--lg)}
+    .apple-tv{--brand-color:var(--apple)} .apple-tv .tv-logo{background:var(--apple)}
+    .roku{--brand-color:var(--roku)} .roku .tv-logo{background:var(--roku)}
+    .fire-tv{--brand-color:var(--fire)} .fire-tv .tv-logo{background:var(--fire)}
+    
+    @media (max-width:980px){
+      .content{grid-template-columns:1fr;gap:30px}
+      .sidebar{position:static}
+      .hero h1{font-size:2.2em}
+      .tv-grid{grid-template-columns:1fr}
+      .method-grid{grid-template-columns:1fr}
+      .comparison-table{font-size:14px}
+      .comparison-table th,.comparison-table td{padding:10px 8px}
+    }
+    @media (max-width:720px){
+      .container{padding:0 15px}
+      .article{padding:25px}
+      .hero{padding:40px 0}
+      .hero h1{font-size:1.8em}
+      .cta-row{flex-direction:column;align-items:center}
+      .tv-card{padding:20px}
+    }
+    @media (max-width:680px){
+      .related-grid{grid-template-columns:1fr}
+      .comparison-table{font-size:12px}
+    }
+    @media (max-width:640px){
+      .hero h1{font-size:1.6em}
+      .btn{width:100%;max-width:300px}
+    }
+  </style>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104025851', 'ym');
+
+    ym(104025851, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/104025851" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+<link rel="canonical" href="https://dostup-plus.github.io/devices/smart-tv-vpn/">
+</head>
+<body>
+  <nav class="breadcrumbs">
+    <div class="container">
+      <a href="/">SAFENET‑VPN</a>
+      <span>→</span>
+      <a href="/devices/">Устройства</a>
+      <span>→</span>
+      <span>VPN для Smart TV</span>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <h1>VPN для Smart TV 2025 — настройка на Samsung, LG, Android TV, Apple TV</h1>
+      <p class="hero-desc">Исчерпывающее руководство по настройке VPN на Smart TV всех популярных брендов: Samsung Tizen, LG webOS, Android TV, Apple TV, Roku. Обход геоблокировок, защита приватности и стабильный стриминг без ограничений на большом экране.</p>
+      
+      <div class="cta-row">
+        <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="btn" onclick="ym(103602117,'reachGoal','smarttv_main_safenet')">📺 SAFENET-VPN для Smart TV</a>
+        <a href="https://t.me/normwpn_bot?start=partner_228691787" class="btn norm" onclick="ym(103602117,'reachGoal','smarttv_main_normvpn')">🎬 Norm VPN для стриминга</a>
+      </div>
+      
+      <div class="trust-line">
+        <strong>✅ Работает со всеми популярными платформами</strong> — проверено на Smart TV 2025 года
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <div class="content">
+        <article class="article">
+          <section>
+            <h2>Зачем нужен VPN для Smart TV в 2025 году</h2>
+            
+            <p><strong>VPN для Smart TV</strong> стал необходимостью в 2025 году из-за растущих ограничений, блокировок контента и угроз приватности. Современные телевизоры собирают огромное количество данных о ваших просмотрах, а стриминговые сервисы активно используют геоблокировки для ограничения доступа к контенту.</p>
+
+            <div class="highlight">
+              <strong>🎯 Основные причины использовать VPN на Smart TV:</strong>
+              <ul style="margin:15px 0 0 20px">
+                <li><strong>Обход геоблокировок</strong> — доступ к Netflix US, BBC iPlayer, Hulu, Disney+, HBO Max и другим заблокированным сервисам</li>
+                <li><strong>Защита приватности</strong> — предотвращение слежки со стороны производителей TV и интернет-провайдеров</li>
+                <li><strong>Предотвращение троттлинга</strong> — обход замедления скорости провайдером для стриминговых сервисов</li>
+                <li><strong>Доступ к российскому контенту за рубежом</strong> — просмотр Кинопоиск, Okko, IVI, СТС из любой страны</li>
+                <li><strong>Безопасность в общественных сетях</strong> — защита при подключении к Wi-Fi в отелях и общественных местах</li>
+                <li><strong>Экономия на подписках</strong> — доступ к более дешевым тарифам в других регионах</li>
+              </ul>
+            </div>
+
+            <p>В условиях российских блокировок 2025 года VPN для телевизора позволяет получить полноценный доступ к мировому контенту, сохраняя при этом высокую скорость и качество просмотра.</p>
+          </section>
+
+          <section>
+            <h2>Способы подключения VPN к Smart TV</h2>
+            
+            <p>Существует несколько методов настройки <strong>VPN для телевизора</strong>, каждый из которых имеет свои преимущества и ограничения. Выбор оптимального способа зависит от модели вашего Smart TV и технических возможностей.</p>
+
+            <div class="method-grid">
+              <div class="method-card">
+                <h4><span class="method-icon" style="background:var(--android)">📱</span>Прямая установка приложения</h4>
+                <p><strong>Подходит для:</strong> Android TV, Google TV, Fire TV Stick, некоторые Samsung</p>
+                <p>Самый простой способ — установка VPN-приложения прямо на телевизор из официального магазина приложений.</p>
+                <ul style="list-style:none;margin-top:15px">
+                  <li style="color:var(--ok)">✓ Простота использования</li>
+                  <li style="color:var(--ok)">✓ Полный функционал VPN</li>
+                  <li style="color:var(--ok)">✓ Удобное управление пультом</li>
+                  <li style="color:var(--err)">✗ Ограниченная совместимость</li>
+                </ul>
+              </div>
+
+              <div class="method-card">
+                <h4><span class="method-icon" style="background:var(--tv)">🌐</span>VPN на роутере</h4>
+                <p><strong>Подходит для:</strong> Любых Smart TV без исключения</p>
+                <p>Универсальный метод — настройка VPN на Wi-Fi роутере защищает все устройства в сети, включая Smart TV.</p>
+                <ul style="list-style:none;margin-top:15px">
+                  <li style="color:var(--ok)">✓ Работает с любыми TV</li>
+                  <li style="color:var(--ok)">✓ Защита всех устройств</li>
+                  <li style="color:var(--ok)">✓ Постоянная защита</li>
+                  <li style="color:var(--warn)">⚠ Требует совместимый роутер</li>
+                </ul>
+              </div>
+
+              <div class="method-card">
+                <h4><span class="method-icon" style="background:var(--streaming)">🔗</span>Smart DNS</h4>
+                <p><strong>Подходит для:</strong> Все Smart TV, игровые консоли</p>
+                <p>Альтернативный метод для разблокировки контента без шифрования — высокая скорость, простая настройка.</p>
+                <ul style="list-style:none;margin-top:15px">
+                  <li style="color:var(--ok)">✓ Максимальная скорость</li>
+                  <li style="color:var(--ok)">✓ Простая настройка</li>
+                  <li style="color:var(--ok)">✓ Универсальная совместимость</li>
+                  <li style="color:var(--err)">✗ Нет шифрования</li>
+                </ul>
+              </div>
+
+              <div class="method-card">
+                <h4><span class="method-icon" style="background:var(--device)">💻</span>Раздача с ПК/Mac</h4>
+                <p><strong>Подходит для:</strong> Любых Smart TV при наличии ПК</p>
+                <p>Создание Wi-Fi точки доступа на компьютере с активным VPN-подключением для подключения Smart TV.</p>
+                <ul style="list-style:none;margin-top:15px">
+                  <li style="color:var(--ok)">✓ Не требует специального оборудования</li>
+                  <li style="color:var(--ok)">✓ Полный контроль настроек</li>
+                  <li style="color:var(--warn)">⚠ ПК должен быть включен</li>
+                  <li style="color:var(--warn)">⚠ Зависимость от стабильности ПК</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2>Настройка VPN по платформам Smart TV</h2>
+            
+            <div class="tv-grid">
+              <!-- Android TV -->
+              <div class="tv-card android-tv">
+                <div class="tv-header">
+                  <div class="tv-logo">ATV</div>
+                  <div>
+                    <h3 class="tv-name">Android TV / Google TV</h3>
+                    <div class="tv-type">Sony, Philips, TCL, Xiaomi, Nvidia Shield</div>
+                  </div>
+                </div>
+                
+                <div class="compatibility">
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Прямая установка VPN:</span>
+                    <span class="compatibility-value supported">✅ Поддерживается</span>
+                  </div>
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Google Play Store:</span>
+                    <span class="compatibility-value supported">✅ Доступен</span>
+                  </div>
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Sideload APK:</span>
+                    <span class="compatibility-value supported">✅ Возможен</span>
+                  </div>
+                </div>
+
+                <ul class="methods-list">
+                  <li class="recommended">Установка из Google Play Store</li>
+                  <li>Sideload APK через USB или ADB</li>
+                  <li>Настройка через роутер</li>
+                  <li>Smart DNS конфигурация</li>
+                </ul>
+
+                <a href="/devices/android-vpn-complete/" class="btn-card" onclick="ym(103602117,'reachGoal','smarttv_card_android')">Подробная настройка Android TV</a>
+              </div>
+
+              <!-- Samsung Tizen -->
+              <div class="tv-card samsung">
+                <div class="tv-header">
+                  <div class="tv-logo">S</div>
+                  <div>
+                    <h3 class="tv-name">Samsung Tizen</h3>
+                    <div class="tv-type">Smart TV 2016-2025</div>
+                  </div>
+                </div>
+                
+                <div class="compatibility">
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Прямая установка VPN:</span>
+                    <span class="compatibility-value not-supported">❌ Не поддерживается</span>
+                  </div>
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Tizen Store VPN:</span>
+                    <span class="compatibility-value limited">⚠️ Ограниченно</span>
+                  </div>
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Smart DNS:</span>
+                    <span class="compatibility-value supported">✅ Поддерживается</span>
+                  </div>
+                </div>
+
+                <ul class="methods-list">
+                  <li class="recommended">Настройка через роутер</li>
+                  <li>Smart DNS настройка</li>
+                  <li>Общий доступ с ПК/смартфона</li>
+                  <li>Developer Mode (для экспертов)</li>
+                </ul>
+
+                <a href="/guide/vpn-setup-configuration/" class="btn-card" onclick="ym(103602117,'reachGoal','smarttv_card_samsung')">Настройка VPN на роутере</a>
+              </div>
+
+              <!-- LG webOS -->
+              <div class="tv-card lg">
+                <div class="tv-header">
+                  <div class="tv-logo">LG</div>
+                  <div>
+                    <h3 class="tv-name">LG webOS</h3>
+                    <div class="tv-type">Smart TV 2014-2025</div>
+                  </div>
+                </div>
+                
+                <div class="compatibility">
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Прямая установка VPN:</span>
+                    <span class="compatibility-value not-supported">❌ Не поддерживается</span>
+                  </div>
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">LG Content Store:</span>
+                    <span class="compatibility-value limited">⚠️ Очень ограниченно</span>
+                  </div>
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Smart DNS:</span>
+                    <span class="compatibility-value supported">✅ Поддерживается</span>
+                  </div>
+                </div>
+
+                <ul class="methods-list">
+                  <li class="recommended">Настройка через роутер</li>
+                  <li>Smart DNS конфигурация</li>
+                  <li>Screen Share с VPN устройства</li>
+                  <li>Homebrew Channel (для экспертов)</li>
+                </ul>
+
+                <a href="/troubleshooting/vpn-problems-2025/" class="btn-card" onclick="ym(103602117,'reachGoal','smarttv_card_lg')">Решение проблем с VPN</a>
+              </div>
+
+              <!-- Apple TV -->
+              <div class="tv-card apple-tv">
+                <div class="tv-header">
+                  <div class="tv-logo">ATV</div>
+                  <div>
+                    <h3 class="tv-name">Apple TV</h3>
+                    <div class="tv-type">4K, HD, все поколения</div>
+                  </div>
+                </div>
+                
+                <div class="compatibility">
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Прямая установка VPN:</span>
+                    <span class="compatibility-value not-supported">❌ Не поддерживается</span>
+                  </div>
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">App Store VPN:</span>
+                    <span class="compatibility-value not-supported">❌ Ограничено</span>
+                  </div>
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Smart DNS:</span>
+                    <span class="compatibility-value supported">✅ Поддерживается</span>
+                  </div>
+                </div>
+
+                <ul class="methods-list">
+                  <li class="recommended">Настройка через роутер</li>
+                  <li>Smart DNS конфигурация</li>
+                  <li>Общий доступ через Mac/iPhone</li>
+                  <li>AirPlay с VPN на iOS устройстве</li>
+                </ul>
+
+                <a href="/devices/ios-vpn-complete/" class="btn-card" onclick="ym(103602117,'reachGoal','smarttv_card_appletv')">VPN для iOS устройств</a>
+              </div>
+
+              <!-- Fire TV -->
+              <div class="tv-card fire-tv">
+                <div class="tv-header">
+                  <div class="tv-logo">F</div>
+                  <div>
+                    <h3 class="tv-name">Fire TV / Fire Stick</h3>
+                    <div class="tv-type">Все модели Amazon</div>
+                  </div>
+                </div>
+                
+                <div class="compatibility">
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Прямая установка VPN:</span>
+                    <span class="compatibility-value supported">✅ Поддерживается</span>
+                  </div>
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Amazon Appstore:</span>
+                    <span class="compatibility-value supported">✅ Доступен</span>
+                  </div>
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Sideload APK:</span>
+                    <span class="compatibility-value supported">✅ Возможен</span>
+                  </div>
+                </div>
+
+                <ul class="methods-list">
+                  <li class="recommended">Установка из Amazon Appstore</li>
+                  <li>Sideload APK через Downloader</li>
+                  <li>Настройка через роутер</li>
+                  <li>Smart DNS настройка</li>
+                </ul>
+
+                <a href="/extensions/browser-vpn-guide/" class="btn-card" onclick="ym(103602117,'reachGoal','smarttv_card_firetv')">Альтернативные методы</a>
+              </div>
+
+              <!-- Roku -->
+              <div class="tv-card roku">
+                <div class="tv-header">
+                  <div class="tv-logo">R</div>
+                  <div>
+                    <h3 class="tv-name">Roku TV</h3>
+                    <div class="tv-type">Все модели и приставки</div>
+                  </div>
+                </div>
+                
+                <div class="compatibility">
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Прямая установка VPN:</span>
+                    <span class="compatibility-value not-supported">❌ Не поддерживается</span>
+                  </div>
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Roku Channel Store:</span>
+                    <span class="compatibility-value not-supported">❌ Нет VPN</span>
+                  </div>
+                  <div class="compatibility-item">
+                    <span class="compatibility-label">Smart DNS:</span>
+                    <span class="compatibility-value supported">✅ Поддерживается</span>
+                  </div>
+                </div>
+
+                <ul class="methods-list">
+                  <li class="recommended">Настройка через роутер</li>
+                  <li>Smart DNS настройка</li>
+                  <li>Общий доступ через ПК</li>
+                  <li>Screen Mirroring с VPN</li>
+                </ul>
+
+                <a href="/streaming/social-media-vpn/" class="btn-card" onclick="ym(103602117,'reachGoal','smarttv_card_roku')">VPN для стриминга</a>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2>Пошаговая настройка VPN через роутер</h2>
+            
+            <p>Настройка <strong>VPN на роутере</strong> — универсальное решение для любого Smart TV. Этот метод обеспечивает защиту всех устройств в домашней сети и работает с любыми моделями телевизоров.</p>
+
+            <div class="steps">
+              <div class="step">
+                <h4>Проверка совместимости роутера</h4>
+                <p>Убедитесь, что ваш роутер поддерживает VPN-клиент. Современные модели ASUS, Netgear, Linksys, Keenetic имеют встроенную поддержку OpenVPN и WireGuard. Для старых роутеров может потребоваться прошивка DD-WRT или OpenWrt.</p>
+              </div>
+
+              <div class="step">
+                <h4>Получение конфигурационных файлов</h4>
+                <p>Скачайте файлы конфигурации от вашего VPN-провайдера: .ovpn для OpenVPN или .conf для WireGuard. SAFENET-VPN предоставляет готовые конфигурации с оптимизацией для российских условий.</p>
+              </div>
+
+              <div class="step">
+                <h4>Настройка VPN-клиента на роутере</h4>
+                <p>Войдите в веб-интерфейс роутера (обычно 192.168.1.1), найдите раздел VPN Client, загрузите конфигурационный файл, введите логин и пароль. Выберите режим "Route all traffic through VPN".</p>
+              </div>
+
+              <div class="step">
+                <h4>Проверка подключения и DNS</h4>
+                <p>Активируйте VPN, проверьте смену IP на whoer.net, убедитесь в отсутствии DNS-утечек на dnsleaktest.com. Настройте DNS-серверы VPN-провайдера для корректной работы геоблокировки.</p>
+              </div>
+
+              <div class="step">
+                <h4>Подключение Smart TV</h4>
+                <p>Подключите Smart TV к Wi-Fi сети роутера с активным VPN. Весь трафик телевизора будет проходить через VPN-туннель. Проверьте доступность заблокированного контента.</p>
+              </div>
+            </div>
+
+            <div class="warning">
+              <strong>⚠️ Важные моменты при настройке:</strong>
+              <ul style="margin:10px 0 0 20px">
+                <li>VPN может снизить скорость на 10-30% в зависимости от мощности роутера</li>
+                <li>Для 4K контента рекомендуется скорость не менее 25 Мбит/с</li>
+                <li>Регулярно обновляйте серверы для стабильной работы</li>
+                <li>Создайте отдельную сеть без VPN для устройств умного дома</li>
+              </ul>
+            </div>
+          </section>
+
+          <section>
+            <h2>VPN vs Smart DNS — что выбрать для Smart TV</h2>
+            
+            <p>Два основных метода обхода геоблокировок на Smart TV имеют разные преимущества и ограничения. Выбор зависит от ваших приоритетов: максимальная скорость или полная защита.</p>
+
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th class="platform-name-col">Характеристика</th>
+                  <th>VPN</th>
+                  <th>Smart DNS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="platform-name-col">Скорость</td>
+                  <td class="limited">Снижение на 10-30%</td>
+                  <td class="supported">Без изменений</td>
+                </tr>
+                <tr>
+                  <td class="platform-name-col">Шифрование трафика</td>
+                  <td class="supported">Полное шифрование</td>
+                  <td class="not-supported">Отсутствует</td>
+                </tr>
+                <tr>
+                  <td class="platform-name-col">Совместимость с TV</td>
+                  <td class="limited">Через роутер/приложение</td>
+                  <td class="supported">Универсальная</td>
+                </tr>
+                <tr>
+                  <td class="platform-name-col">Сложность настройки</td>
+                  <td class="limited">Средняя-высокая</td>
+                  <td class="supported">Простая</td>
+                </tr>
+                <tr>
+                  <td class="platform-name-col">Защита приватности</td>
+                  <td class="supported">Высокая</td>
+                  <td class="not-supported">Отсутствует</td>
+                </tr>
+                <tr>
+                  <td class="platform-name-col">Обход DPI-блокировок</td>
+                  <td class="supported">Отличный</td>
+                  <td class="limited">Ограниченный</td>
+                </tr>
+                <tr>
+                  <td class="platform-name-col">Стоимость</td>
+                  <td class="limited">Выше</td>
+                  <td class="supported">Ниже</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="highlight">
+              <strong>💡 Рекомендации по выбору:</strong>
+              <ul style="margin:15px 0 0 20px">
+                <li><strong>Выбирайте VPN</strong> для полной защиты, обхода сложных блокировок и максимальной приватности</li>
+                <li><strong>Выбирайте Smart DNS</strong> для максимальной скорости стриминга и простоты настройки</li>
+                <li><strong>Комбинированный подход</strong> — Smart DNS для повседневного просмотра + VPN при необходимости защиты</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="faq">
+            <h2>Часто задаваемые вопросы о VPN для Smart TV</h2>
+            
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this);ym(103602117,'reachGoal','smarttv_faq_0')">
+                Можно ли установить VPN прямо на Samsung или LG Smart TV?
+              </div>
+              <div class="faq-answer">
+                <p>Нет, прямая установка VPN-приложений на Samsung Tizen и LG webOS невозможна из-за ограничений операционных систем. Для этих телевизоров используйте VPN на роутере, Smart DNS или раздачу VPN с компьютера.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this);ym(103602117,'reachGoal','smarttv_faq_1')">
+                Влияет ли VPN на качество видео при просмотре 4K?
+              </div>
+              <div class="faq-answer">
+                <p>Качественный VPN снижает скорость на 10-30%. Для комфортного просмотра 4K контента нужна скорость не менее 25 Мбит/с. Используйте WireGuard протокол и ближайшие серверы для минимального влияния на качество.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this);ym(103602117,'reachGoal','smarttv_faq_2')">
+                Какой протокол VPN лучше для стриминга на Smart TV?
+              </div>
+              <div class="faq-answer">
+                <p>WireGuard — оптимальный выбор для стриминга благодаря высокой скорости и эффективности. Если WireGuard недоступен, используйте OpenVPN UDP. SAFENET-VPN автоматически выбирает лучший протокол для ваших условий.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this);ym(103602117,'reachGoal','smarttv_faq_3')">
+                Почему Netflix блокирует VPN на Smart TV?
+              </div>
+              <div class="faq-answer">
+                <p>Стриминговые платформы обязаны соблюдать лицензионные соглашения по регионам и используют продвинутые методы обнаружения VPN. Для обхода выбирайте VPN с регулярным обновлением серверов и обфускацией трафика.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this);ym(103602117,'reachGoal','smarttv_faq_4')">
+                Как проверить, работает ли VPN на Smart TV?
+              </div>
+              <div class="faq-answer">
+                <p>Откройте встроенный браузер Smart TV и зайдите на whoer.net или 2ip.ru. Если VPN работает, вы увидите IP-адрес VPN-сервера вместо вашего реального IP. Также проверьте отсутствие DNS-утечек на dnsleaktest.com.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this);ym(103602117,'reachGoal','smarttv_faq_5')">
+                Можно ли использовать бесплатный VPN для Smart TV?
+              </div>
+              <div class="faq-answer">
+                <p>Не рекомендуется. Бесплатные VPN имеют ограничения скорости, трафика, мало серверов и могут продавать ваши данные. Для стабильного стриминга в высоком качестве используйте проверенные платные сервисы.</p>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2>Полезные материалы по теме</h2>
+            <div class="related-grid">
+              <a href="/devices/android-vpn-complete/" class="related-link" onclick="ym(103602117,'reachGoal','smarttv_related_android')">
+                <strong>VPN для Android TV</strong><br>Подробная настройка
+              </a>
+              <a href="/guide/vpn-setup-configuration/" class="related-link" onclick="ym(103602117,'reachGoal','smarttv_related_setup')">
+                <strong>Настройка VPN на роутере</strong><br>Пошаговые инструкции
+              </a>
+              <a href="/streaming/social-media-vpn/" class="related-link" onclick="ym(103602117,'reachGoal','smarttv_related_streaming')">
+                <strong>VPN для стриминга</strong><br>YouTube, Netflix, Disney+
+              </a>
+              <a href="/guide/best-vpn-russia-2025/" class="related-link" onclick="ym(103602117,'reachGoal','smarttv_related_bestvpn')">
+                <strong>Лучшие VPN для России</strong><br>Рейтинг 2025
+              </a>
+              <a href="/troubleshooting/vpn-problems-2025/" class="related-link" onclick="ym(103602117,'reachGoal','smarttv_related_problems')">
+                <strong>Проблемы с VPN</strong><br>Диагностика и решения
+              </a>
+              <a href="/guide/vpn-protocols-2025/" class="related-link" onclick="ym(103602117,'reachGoal','smarttv_related_protocols')">
+                <strong>Протоколы VPN</strong><br>Выбор для Smart TV
+              </a>
+              <a href="/devices/windows-vpn-complete/" class="related-link" onclick="ym(103602117,'reachGoal','smarttv_related_windows')">
+                <strong>VPN для Windows</strong><br>Общий доступ к интернету
+              </a>
+              <a href="/devices/ios-vpn-complete/" class="related-link" onclick="ym(103602117,'reachGoal','smarttv_related_ios')">
+                <strong>VPN для iOS</strong><br>AirPlay с VPN
+              </a>
+              <a href="/business/corporate-vpn-guide/" class="related-link" onclick="ym(103602117,'reachGoal','smarttv_related_business')">
+                <strong>Корпоративные VPN</strong><br>Для офисных TV
+              </a>
+              <a href="/legal/vpn-law-russia-2025/" class="related-link" onclick="ym(103602117,'reachGoal','smarttv_related_legal')">
+                <strong>Закон о VPN в России</strong><br>Правовые аспекты
+              </a>
+              <a href="/brands/popular-vpn-review/" class="related-link" onclick="ym(103602117,'reachGoal','smarttv_related_brands')">
+                <strong>Обзор популярных VPN</strong><br>Сравнение для TV
+              </a>
+              <a href="/extensions/browser-vpn-guide/" class="related-link" onclick="ym(103602117,'reachGoal','smarttv_related_extensions')">
+                <strong>VPN расширения</strong><br>Для Smart TV браузеров
+              </a>
+            </div>
+          </section>
+
+          <section style="text-align:center;margin:50px 0">
+            <h2>Настройте VPN для вашего Smart TV</h2>
+            <p style="color:var(--muted);margin-bottom:30px">SAFENET-VPN работает со всеми Smart TV платформами. Первый месяц всего 107₽.</p>
+            <div class="cta-row">
+              <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="btn" onclick="ym(103602117,'reachGoal','smarttv_footer_safenet')">Получить SAFENET‑VPN</a>
+              <a href="https://t.me/normwpn_bot?start=partner_228691787" class="btn norm" onclick="ym(103602117,'reachGoal','smarttv_footer_normvpn')">Попробовать Norm VPN</a>
+            </div>
+          </section>
+        </article>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>📺 VPN для Smart TV</h3>
+            <p style="margin-bottom:15px"><strong>SAFENET-VPN</strong><br>Оптимизация для TV платформ</p>
+            <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="btn btn-card" onclick="ym(103602117,'reachGoal','smarttv_sidebar_safenet')">Получить SAFENET-VPN</a>
+            
+            <p style="margin:20px 0 15px 0"><strong>Norm VPN</strong><br>Для стриминга контента</p>
+            <a href="https://t.me/normwpn_bot?start=partner_228691787" class="btn btn-card norm" onclick="ym(103602117,'reachGoal','smarttv_sidebar_normvpn')">Попробовать Norm VPN</a>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>🎯 Быстрый выбор метода</h3>
+            <div style="text-align:left;font-size:14px">
+              <p><strong>Android TV/Fire TV:</strong><br>Прямая установка приложения</p>
+              <p><strong>Samsung/LG/Roku:</strong><br>Настройка через роутер</p>
+              <p><strong>Apple TV:</strong><br>Smart DNS или роутер</p>
+              <p><strong>Любой TV:</strong><br>VPN на роутере (универсально)</p>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>⚡ Совместимость</h3>
+            <div style="text-align:left;font-size:14px">
+              <p><strong>✅ Полная поддержка:</strong><br>
+              Android TV, Google TV, Fire TV</p>
+              
+              <p><strong>⚠️ Через роутер:</strong><br>
+              Samsung, LG, Roku, Apple TV</p>
+              
+              <p><strong>🌐 Smart DNS:</strong><br>
+              Все платформы без исключения</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function toggleFaq(element) {
+      const answer = element.nextElementSibling;
+      const isActive = answer.classList.contains('active');
+      
+      document.querySelectorAll('.faq-answer').forEach(item => {
+        item.classList.remove('active');
+      });
+      document.querySelectorAll('.faq-question').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      if (!isActive) {
+        answer.classList.add('active');
+        element.classList.add('active');
+      }
+    }
+  </script>
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "VPN для Smart TV 2025 — настройка на Samsung, LG, Android TV, Apple TV",
+        "description": "Полное руководство по VPN для Smart TV 2025: настройка на Samsung Tizen, LG webOS, Android TV, Apple TV. Обход блокировок, стриминг без ограничений.",
+        "author": {"@type": "Organization", "name": "SAFENET-VPN"},
+        "publisher": {
+          "@type": "Organization",
+          "name": "SAFENET-VPN",
+          "logo": {"@type": "ImageObject", "url": "https://dostup-plus.github.io/images/og-safenet.jpg"}
+        },
+        "datePublished": "2025-08-19",
+        "dateModified": "2025-08-19",
+        "image": "https://dostup-plus.github.io/images/og-safenet.jpg",
+        "url": "https://dostup-plus.github.io/devices/smart-tv-vpn/",
+        "articleSection": "Devices"
+      },
+      {
+        "@type": "HowTo",
+        "name": "Как настроить VPN на Smart TV",
+        "description": "Пошаговое руководство по настройке VPN на Smart TV любой марки",
+        "step": [
+          {"@type": "HowToStep", "name": "Определить платформу TV", "text": "Узнайте операционную систему вашего Smart TV"},
+          {"@type": "HowToStep", "name": "Выбрать метод подключения", "text": "Прямая установка, роутер или Smart DNS"},
+          {"@type": "HowToStep", "name": "Настроить VPN", "text": "Следуйте инструкциям для вашей платформы"},
+          {"@type": "HowToStep", "name": "Проверить работу", "text": "Убедитесь в доступности контента"}
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Можно ли установить VPN прямо на Samsung или LG Smart TV?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Нет, прямая установка VPN-приложений на Samsung Tizen и LG webOS невозможна. Для этих телевизоров используйте VPN на роутере, Smart DNS или раздачу VPN с компьютера."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Какой протокол VPN лучше для стриминга на Smart TV?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "WireGuard — оптимальный выбор для стриминга благодаря высокой скорости и эффективности. Если WireGuard недоступен, используйте OpenVPN UDP."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <noscript><div><img src="https://mc.yandex.ru/watch/103602117" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+</body>
+</html>
+

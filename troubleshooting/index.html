@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Решение проблем с VPN — быстрые фиксы и диагностика (2025)</title>
+  <meta name="description" content="VPN не подключается, медленно работает, сайты не открываются? Готовые фиксы, диагностика скорости и IP, инструкции по устройствам. Обновлено для России 2025."/>
+  <meta name="keywords" content="vpn не работает, vpn не подключается, медленный vpn, сайт не открывается через vpn, диагностика vpn, как починить vpn"/>
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+
+  <style>
+    :root { --primary-color:#2563eb; --secondary-color:#1e40af; --accent-color:#f59e0b; --success-color:#10b981; --danger-color:#ef4444; --warning-color:#f59e0b; --dark-bg:#0f172a; --card-bg:#1e293b; }
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#e2e8f0;line-height:1.6}
+    .nav-header{background:rgba(15,23,42,.95);backdrop-filter:blur(10px);border-bottom:1px solid #334155}
+    .hero-section{background:linear-gradient(135deg,#1e40af 0%,#3730a3 50%,#7c3aed 100%);position:relative;overflow:hidden}
+    .hero-section::before{content:'';position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>')}
+    .card{background:var(--card-bg);border:1px solid #334155;border-radius:14px;transition:.3s}
+    .card:hover{border-color:var(--primary-color);transform:translateY(-2px);box-shadow:0 10px 30px rgba(37,99,235,.2)}
+    .btn-primary{background:linear-gradient(135deg,var(--primary-color) 0%,var(--secondary-color) 100%);color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;font-weight:700;transition:.3s}
+    .btn-success{background:linear-gradient(135deg,var(--success-color) 0%,#059669 100%);color:#fff;padding:14px 26px;border-radius:12px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;font-weight:700;transition:.3s}
+    .breadcrumb{color:#94a3b8;margin:20px 0}
+    .breadcrumb a{color:var(--primary-color);text-decoration:none}
+    .promo-box{background:linear-gradient(135deg,var(--success-color) 0%,#059669 100%);padding:24px;border-radius:16px;text-align:center;margin:40px 0;position:relative;overflow:hidden}
+    .promo-box::before{content:'';position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(255,255,255,0.1)" cx="50" cy="50" r="40"/></svg>');opacity:.3}
+    .badge{font-size:.7rem;padding:.2rem .45rem;border-radius:.35rem}
+  </style>
+
+  <!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=103602117', 'ym');
+
+    ym(103602117, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/103602117" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+<link rel="canonical" href="https://dostup-world.github.io/troubleshooting/">
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav-header sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="https://dostup-world.github.io/" class="text-xl font-bold text-white flex items-center gap-2">
+          <i class="fas fa-shield-alt text-blue-400"></i> Internet Security Hub
+        </a>
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="https://dostup-world.github.io/guide/" class="text-gray-300 hover:text-white transition">Руководства</a>
+          <a href="https://dostup-world.github.io/devices/" class="text-gray-300 hover:text-white transition">Устройства</a>
+          <a href="https://dostup-world.github.io/streaming/" class="text-gray-300 hover:text-white transition">Стриминг</a>
+          <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="btn-primary"><i class="fab fa-telegram"></i> Получить VPN</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="breadcrumb">
+      <a href="https://dostup-world.github.io/">Главная</a> / <span>Решение проблем</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero-section py-16">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-4">VPN не работает? Чиним.</h1>
+      <p class="text-blue-100 text-xl max-w-3xl mx-auto">
+        Быстрые фиксы, диагностика и понятные инструкции для Windows, Android, iPhone, роутеров и Smart TV.
+      </p>
+      <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="#quick-fix" class="btn-success"><i class="fas fa-rocket"></i> Быстрый фикс за 2 минуты</a>
+        <a href="#diagnostics" class="btn-primary"><i class="fas fa-stethoscope"></i> Перейти к диагностике</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <!-- Quick fix -->
+    <section id="quick-fix" class="card p-8 mb-12">
+      <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+        <i class="fas fa-screwdriver-wrench text-green-400"></i> Быстрый фикс (по шагам)
+      </h2>
+      <ol class="list-decimal ml-6 space-y-3 text-gray-200">
+        <li><strong>Смените сервер/страну</strong> (NL/DE → FI/SE). Иногда блокируется конкретный узел.</li>
+        <li>Переключите <strong>протокол</strong>: WireGuard ↔ OpenVPN (UDP/TCP).</li>
+        <li>Очистите <strong>кэш и куки</strong> проблемного сайта, перезапустите браузер.</li>
+        <li>Отключите <strong>IPv6</strong> и проверьте DNS 1.1.1.1 / 8.8.8.8.</li>
+        <li>Проверьте, не режет ли трафик <strong>антивирус/фаервол</strong> (временное отключение → тест).</li>
+        <li>Сделайте перезапуск устройства и <strong>подключайтесь до запуска</strong> приложений.</li>
+      </ol>
+      <div class="mt-6">
+        <a href="https://dostup-world.github.io/troubleshooting/vpn-fix/" class="text-blue-400 underline"><i class="fas fa-book-open mr-1"></i> Подробная инструкция: «VPN не подключается — что делать»</a>
+      </div>
+    </section>
+
+    <!-- Diagnostics -->
+    <section id="diagnostics" class="mb-12">
+      <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+        <i class="fas fa-heart-pulse text-yellow-400"></i> Диагностика соединения
+      </h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <a href="https://dostup-world.github.io/diagnostics/ip-check/" class="card p-6 block hover:shadow-xl">
+          <h3 class="text-xl font-bold mb-2">Проверка IP и DNS</h3>
+          <p class="text-gray-300 text-sm mb-4">Понять, «протекли» ли DNS/IPv6 и виден ли реальный IP.</p>
+          <div class="text-blue-400 text-sm"><i class="fas fa-arrow-right mr-1"></i> Открыть</div>
+        </a>
+        <a href="https://dostup-world.github.io/diagnostics/speed-test/" class="card p-6 block hover:shadow-xl">
+          <h3 class="text-xl font-bold mb-2">Тест скорости VPN</h3>
+          <p class="text-gray-300 text-sm mb-4">Диагностика: хватает ли на 4K/стриминг, где bottleneck.</p>
+          <div class="text-blue-400 text-sm"><i class="fas fa-arrow-right mr-1"></i> Открыть</div>
+        </a>
+        <a href="https://dostup-world.github.io/guide/bypass-without-vpn-2025/" class="card p-6 block hover:shadow-xl">
+          <h3 class="text-xl font-bold mb-2">Если VPN «не берёт» сайт</h3>
+          <p class="text-gray-300 text-sm mb-4">Запрет/GoodbyeDPI/DNS — альтернативные обходы DPI.</p>
+          <div class="text-blue-400 text-sm"><i class="fas fa-arrow-right mr-1"></i> Открыть</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- По устройствам -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+        <i class="fas fa-computer text-blue-400"></i> Решения по устройствам
+      </h2>
+      <div class="grid md:grid-cols-4 gap-6">
+        <a href="https://dostup-world.github.io/devices/windows/" class="card p-6 block hover:shadow-xl">
+          <h3 class="text-xl font-bold mb-2">Windows 10/11</h3>
+          <p class="text-gray-300 text-sm">WireGuard, OpenVPN, GoodbyeDPI/Zapret.</p>
+        </a>
+        <a href="https://dostup-world.github.io/devices/android/" class="card p-6 block hover:shadow-xl">
+          <h3 class="text-xl font-bold mb-2">Android</h3>
+          <p class="text-gray-300 text-sm">Клиенты, Always-on, энергосбережение.</p>
+        </a>
+        <a href="https://dostup-world.github.io/devices/ios/" class="card p-6 block hover:shadow-xl">
+          <h3 class="text-xl font-bold mb-2">iPhone / iPad</h3>
+          <p class="text-gray-300 text-sm">Профили, On-Demand, Safari vs App.</p>
+        </a>
+        <a href="https://dostup-world.github.io/devices/smart-tv/" class="card p-6 block hover:shadow-xl">
+          <h3 class="text-xl font-bold mb-2">Smart TV</h3>
+          <p class="text-gray-300 text-sm">VPN на роутере, SmartTube Next.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Когда лучше сменить подход -->
+    <section class="card p-8 mb-12">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-rotate text-purple-400"></i> Когда проще поменять инструмент
+      </h2>
+      <ul class="list-disc ml-6 text-gray-300 space-y-2 text-sm">
+        <li>Постоянно «обнаружен прокси» — нужны сервера с обфускацией/ротацией IP.</li>
+        <li>Видео/стриминг лагают — сервер перегружен, провайдер режет. Нужны другие точки.</li>
+        <li>Блоки на уровне DPI — пробуйте Zapret/GoodbyeDPI или индивидуальные профили.</li>
+      </ul>
+      <div class="mt-4">
+        <a href="https://dostup-world.github.io/guide/outline-vpn-setup-2025/" class="text-blue-400 underline"><i class="fas fa-server mr-1"></i> Свой сервер: Outline/Amnezia</a>
+      </div>
+    </section>
+
+    <!-- CTA: обе кнопки → бот по рефералке -->
+    <section class="promo-box">
+      <h2 class="text-2xl font-bold text-white mb-3">Нужна помощь инженера прямо сейчас?</h2>
+      <p class="text-white mb-4">Подключим рабочий профиль под вашего провайдера, решим ошибки, дадим инструкции. Поддержка 24/7 в Telegram.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="bg-white text-green-600 px-6 py-3 rounded-xl font-bold inline-flex items-center gap-2">
+          <i class="fab fa-telegram"></i> Подключить VPN
+        </a>
+        <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="btn-primary">
+          <i class="fas fa-wrench"></i> Решить проблемы с VPN
+        </a>
+      </div>
+    </section>
+
+    <!-- Перелинковка -->
+    <section class="mb-8">
+      <h2 class="text-xl font-bold mb-3">Смотрите ещё</h2>
+      <ul class="list-disc ml-6 text-blue-300">
+        <li><a class="underline" href="https://dostup-world.github.io/streaming/youtube/">Как зайти на YouTube в России</a></li>
+        <li><a class="underline" href="https://dostup-world.github.io/extensions/">VPN-расширения для браузера</a></li>
+        <li><a class="underline" href="https://dostup-world.github.io/brands/popular-vpn-review/">Лучшие VPN 2025 — обзор</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="bg-slate-900 border-t border-slate-700 py-10">
+    <div class="max-w-7xl mx-auto px-4 text-center text-gray-400 text-sm">
+      © 2025 Internet Security Hub • Решение проблем с VPN. Материал — образовательный.
+    </div>
+  </footer>
+</body>
+</html>
+

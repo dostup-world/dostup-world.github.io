@@ -1,0 +1,323 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Протоколы VPN — WireGuard, OpenVPN, IKEv2: сравнение и выбор | SAFENET‑VPN</title>
+  <meta name="description" content="Подробное сравнение VPN протоколов: WireGuard, OpenVPN, IKEv2, L2TP/IPsec. Скорость, безопасность, совместимость с устройствами. Какой протокол выбрать для Windows, Android, iOS.">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <meta name="robots" content="index,follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="Протоколы VPN — WireGuard, OpenVPN, IKEv2: сравнение и выбор">
+  <meta property="og:description" content="Детальное сравнение VPN протоколов по скорости, безопасности и совместимости. Рекомендации для разных устройств и задач.">
+  <meta property="og:url" content="https://dostup-plus.github.io/guide/protocols/">
+  <meta property="og:image" content="https://dostup-plus.github.io/images/og-safenet.jpg">
+  <meta property="og:site_name" content="SAFENET-VPN">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Протоколы VPN — WireGuard, OpenVPN, IKEv2: сравнение и выбор">
+  <meta name="twitter:description" content="Подробное сравнение VPN протоколов по скорости, безопасности и совместимости.">
+  <meta name="twitter:image" content="https://dostup-plus.github.io/images/og-safenet.jpg">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="alternate" type="application/rss+xml" title="SAFENET-VPN — Руководства по VPN" href="/rss.xml">
+
+    <!-- RSS лента — ДОБАВИТЬ СЮДА -->
+  <link rel="alternate" type="application/rss+xml" title="SAFENET-VPN — Руководства по VPN" href="/rss.xml">
+
+  <style>
+    :root{
+      --bg:#0b1020; --card:#11183a; --text:#e9eefc; --muted:#aab3d9; --accent:#4da3ff; --accent-2:#7de2d1; --ok:#29c773; --warn:#ffb020; --err:#ff5c5c;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1050px;margin:0 auto;padding:20px}
+    .breadcrumbs{font-size:.9rem;color:var(--muted);margin:12px 0}
+    .breadcrumbs a{color:var(--muted)}
+    .hero{background:linear-gradient(135deg,rgba(77,163,255,.15),rgba(125,226,209,.12));border:1px solid rgba(125,226,209,.25);border-radius:16px;padding:28px;margin:16px 0}
+    .hero h1{margin:0 0 10px 0;font-size:2rem}
+    .hero p{margin:0 0 16px 0;color:var(--muted)}
+    .cta-row{display:flex;flex-wrap:wrap;gap:10px}
+    .btn{display:inline-block;background:var(--accent);color:#061229;padding:12px 16px;border-radius:10px;font-weight:700}
+    .btn.secondary{background:transparent;border:1px solid var(--accent);color:var(--text)}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:24px}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px}
+    h2{margin-top:28px}
+    h3{margin-top:20px}
+    .badge{display:inline-block;background:rgba(77,163,255,.15);border:1px solid rgba(77,163,255,.4);color:#cfe5ff;padding:2px 8px;border-radius:999px;font-size:.8rem}
+    .note{border-left:3px solid var(--accent-2);padding-left:12px;color:#cfe5ff}
+    .ok{color:var(--ok);font-weight:600}
+    ul.check>li::marker{content:"✔ ";color:var(--ok)}
+    .also ul{columns:2;gap:24px}
+    @media(max-width:680px){.also ul{columns:1}}
+    .muted{color:var(--muted)}
+    .footer-cta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .small{font-size:.9rem}
+    .protocol-table{display:grid;grid-template-columns:140px repeat(4,1fr);gap:8px;margin:16px 0;font-size:.9rem}
+    .protocol-table .header{background:rgba(77,163,255,.1);padding:8px;border-radius:6px;font-weight:600;text-align:center}
+    .protocol-table .cell{padding:8px;border-bottom:1px solid rgba(255,255,255,.1)}
+    .protocol-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:20px 0}
+    .protocol-card{border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;background:rgba(17,24,58,.3)}
+    .protocol-card h3{margin:0 0 8px 0;color:var(--accent)}
+  </style>
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],
+      k.async=1;k.src=r;a.parentNode.insertBefore(k,a)
+    })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(103602117, "init", {clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/103602117" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+  <!-- /Yandex.Metrika -->
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104025851', 'ym');
+
+    ym(104025851, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/104025851" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+<link rel="canonical" href="https://dostup-plus.github.io/guide/protocols/">
+</head>
+<body>
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <a href="/">Главная</a> › <a href="/guide/">Руководства</a> › <span>Протоколы VPN</span>
+    </nav>
+
+    <section class="hero">
+      <span class="badge">Технические детали</span>
+      <h1>Протоколы VPN — WireGuard, OpenVPN, IKEv2: сравнение и выбор</h1>
+      <p>Разбираем основные VPN протоколы по критериям скорости, безопасности, стабильности и совместимости. Какой протокол выбрать для Windows, Android, iOS, роутеров и конкретных задач.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://t.me/SafeNetVpn_bot?start=afrrica" onclick="ym(103602117,'reachGoal','protocols_main_cta')" rel="noopener nofollow">Получить оптимальный протокол</a>
+        <a class="btn secondary" href="#comparison" onclick="ym(103602117,'reachGoal','protocols_comparison_start')">Сравнить протоколы</a>
+      </div>
+      <p class="muted small">SAFENET‑VPN: WireGuard и OpenVPN • От 126₽/мес (первый месяц 107₽)</p>
+    </section>
+
+    <div class="grid">
+      <main>
+        <section class="card">
+          <h2>Быстрые рекомендации</h2>
+          <ul class="check">
+            <li><strong>Максимальная скорость и 4K стриминг:</strong> WireGuard</li>
+            <li><strong>Устойчивость к блокировкам (офисы, университеты):</strong> OpenVPN TCP 443</li>
+            <li><strong>Встроенная поддержка в Windows/iOS/macOS:</strong> IKEv2</li>
+            <li><strong>Универсальная совместимость:</strong> OpenVPN UDP</li>
+            <li><strong>Старые устройства:</strong> L2TP/IPsec (не рекомендуется для критичных задач)</li>
+          </ul>
+        </section>
+
+        <section id="comparison" class="card">
+          <h2>Сравнительная таблица протоколов</h2>
+          <div class="protocol-table">
+            <div class="header">Критерий</div>
+            <div class="header">WireGuard</div>
+            <div class="header">OpenVPN</div>
+            <div class="header">IKEv2</div>
+            <div class="header">L2TP/IPsec</div>
+            
+            <div class="cell"><strong>Скорость</strong></div>
+            <div class="cell ok">Отлично</div>
+            <div class="cell">Хорошо</div>
+            <div class="cell">Хорошо</div>
+            <div class="cell">Средне</div>
+            
+            <div class="cell"><strong>Безопасность</strong></div>
+            <div class="cell ok">Отлично</div>
+            <div class="cell ok">Отлично</div>
+            <div class="cell ok">Отлично</div>
+            <div class="cell">Устарело</div>
+            
+            <div class="cell"><strong>Обход блокировок</strong></div>
+            <div class="cell">Средне</div>
+            <div class="cell ok">Отлично</div>
+            <div class="cell">Средне</div>
+            <div class="cell">Плохо</div>
+            
+            <div class="cell"><strong>Энергопотребление</strong></div>
+            <div class="cell ok">Низкое</div>
+            <div class="cell">Среднее</div>
+            <div class="cell">Среднее</div>
+            <div class="cell">Высокое</div>
+            
+            <div class="cell"><strong>Настройка</strong></div>
+            <div class="cell ok">Простая</div>
+            <div class="cell">Средняя</div>
+            <div class="cell ok">Простая</div>
+            <div class="cell">Сложная</div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Детальный обзор протоколов</h2>
+          <div class="protocol-cards">
+            <div class="protocol-card">
+              <h3>🚀 WireGuard</h3>
+              <p><strong>Современный протокол нового поколения</strong></p>
+              <p><strong>Плюсы:</strong> максимальная скорость, низкое энергопотребление, простая настройка, современная криптография (ChaCha20, Curve25519)</p>
+              <p><strong>Минусы:</strong> легко блокируется DPI, относительно новый</p>
+              <p><strong>Лучше всего для:</strong> стриминг 4K, мобильные устройства, домашнее использование</p>
+            </div>
+            
+            <div class="protocol-card">
+              <h3>🔒 OpenVPN</h3>
+              <p><strong>Проверенный временем стандарт</strong></p>
+              <p><strong>Плюсы:</strong> отличная совместимость, обходит большинство блокировок (особенно TCP 443), гибкая настройка, открытый исходный код</p>
+              <p><strong>Минусы:</strong> медленнее WireGuard, выше энергопотребление</p>
+              <p><strong>Лучше всего для:</strong> корпоративные сети, обход цензуры, роутеры</p>
+            </div>
+            
+            <div class="protocol-card">
+              <h3>⚡ IKEv2</h3>
+              <p><strong>Встроенный в большинство ОС</strong></p>
+              <p><strong>Плюсы:</strong> быстрое переподключение, встроенная поддержка, стабильность при смене сетей</p>
+              <p><strong>Минусы:</strong> легко блокируется, меньше настроек</p>
+              <p><strong>Лучше всего для:</strong> мобильные устройства с частой сменой сетей, Windows без сторонних клиентов</p>
+            </div>
+            
+            <div class="protocol-card">
+              <h3>📡 L2TP/IPsec</h3>
+              <p><strong>Устаревший, но широко поддерживаемый</strong></p>
+              <p><strong>Плюсы:</strong> встроен почти везде, простая настройка</p>
+              <p><strong>Минусы:</strong> медленный, легко блокируется, потенциально скомпрометирован АНБ</p>
+              <p><strong>Лучше всего для:</strong> только как последний вариант на старых устройствах</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Рекомендации по устройствам</h2>
+          <ul>
+            <li><strong>Windows:</strong> WireGuard (первый выбор) → OpenVPN → встроенный IKEv2</li>
+            <li><strong>Android:</strong> WireGuard → OpenVPN (через приложения из Google Play)</li>
+            <li><strong>iPhone/iPad:</strong> WireGuard → IKEv2 (для On Demand) → OpenVPN</li>
+            <li><strong>macOS:</strong> WireGuard → встроенный IKEv2 → OpenVPN</li>
+            <li><strong>Роутеры:</strong> OpenVPN (шире поддержка) → WireGuard (при наличии)</li>
+            <li><strong>Linux:</strong> WireGuard (нативно в ядре) → OpenVPN</li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <h2>Выбор протокола по задачам</h2>
+          <ul class="check">
+            <li><strong>4K стриминг:</strong> WireGuard для максимальной скорости</li>
+            <li><strong>Обход корпоративных блокировок:</strong> OpenVPN TCP 443</li>
+            <li><strong>Мобильное использование:</strong> WireGuard для экономии батареи</li>
+            <li><strong>Максимальная приватность:</strong> OpenVPN с дополнительными настройками</li>
+            <li><strong>Игры:</strong> WireGuard для минимального пинга</li>
+            <li><strong>Работа из дома:</strong> IKEv2 для стабильности при смене Wi-Fi</li>
+          </ul>
+        </section>
+
+        <section class="card also">
+          <h2>Читайте также</h2>
+          <ul>
+            <li><a href="/guide/vpn-fundamentals/">Что такое VPN простыми словами</a></li>
+            <li><a href="/guide/selection-criteria/">Как выбрать надежный VPN</a></li>
+            <li><a href="/devices/windows/">VPN для Windows — настройка всех протоколов</a></li>
+            <li><a href="/devices/android/">VPN для Android — WireGuard и OpenVPN</a></li>
+            <li><a href="/devices/ios/">VPN для iPhone — протоколы и настройки</a></li>
+            <li><a href="/troubleshooting/not-working/">VPN не работает — смена протокола</a></li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <div class="footer-cta">
+            <div>
+              <h3>Все протоколы в одном сервисе: SAFENET‑VPN</h3>
+              <p class="muted">WireGuard и OpenVPN, автоматический выбор оптимального протокола. От 126₽/мес (первый месяц 107₽).</p>
+            </div>
+            <a class="btn" href="https://t.me/SafeNetVpn_bot?start=afrrica" onclick="ym(103602117,'reachGoal','protocols_footer_cta')" rel="noopener nofollow">Начать в Telegram</a>
+          </div>
+        </section>
+      </main>
+
+      <aside>
+        <div class="card">
+          <h3>⚡ Быстрый выбор</h3>
+          <ul class="small">
+            <li><strong>Скорость:</strong> WireGuard</li>
+            <li><strong>Обход блокировок:</strong> OpenVPN TCP 443</li>
+            <li><strong>Мобильность:</strong> IKEv2</li>
+            <li><strong>Совместимость:</strong> OpenVPN UDP</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Нужна консультация?</h3>
+          <p class="small muted">Поможем выбрать оптимальный протокол под ваши задачи и сеть.</p>
+          <a class="btn" href="https://t.me/SafeNetVpn_bot?start=afrrica" onclick="ym(103602117,'reachGoal','protocols_sidebar_cta')" rel="noopener nofollow">Получить рекомендации</a>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="muted small" style="margin:24px 0;">
+      © SAFENET‑VPN. Выбирайте протокол осознанно.
+    </footer>
+  </div>
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Протоколы VPN — WireGuard, OpenVPN, IKEv2: сравнение и выбор",
+    "description": "Подробное сравнение VPN протоколов по скорости, безопасности и совместимости. Рекомендации для разных устройств и задач.",
+    "mainEntityOfPage": "https://dostup-plus.github.io/guide/protocols/",
+    "image": "https://dostup-plus.github.io/images/og-safenet.jpg",
+    "author": {
+      "@type": "Organization",
+      "name": "SAFENET-VPN"
+    }
+  }
+  </script>
+
+  <!-- Schema.org JSON-LD: Breadcrumbs -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Главная",
+        "item": "https://dostup-plus.github.io/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Руководства",
+        "item": "https://dostup-plus.github.io/guide/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Протоколы VPN",
+        "item": "https://dostup-plus.github.io/guide/protocols/"
+      }
+    ]
+  }
+  </script>
+</body>
+</html>
+

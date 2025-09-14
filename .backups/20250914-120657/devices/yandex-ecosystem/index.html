@@ -1,0 +1,652 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>VPN для Яндекс.Станции и умного дома 2025 — Алиса за границей | SAFENET‑VPN</title>
+  <meta name="description" content="Как настроить VPN для Яндекс.Станции, Алисы, умного дома за границей. VPN на роутере для умных устройств, обход геоблокировок российских сервисов. Пошаговая инструкция.">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <meta name="robots" content="index,follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="VPN для Яндекс.Станции и умного дома — Алиса за границей 2025">
+  <meta property="og:description" content="Настройка VPN для работы Яндекс.Станции, Алисы и умных устройств за границей. VPN на роутере, обход геоблокировок, решение проблем.">
+  <meta property="og:url" content="https://dostup-plus.github.io/devices/yandex-ecosystem/">
+  <meta property="og:image" content="https://dostup-plus.github.io/images/og-safenet.jpg">
+  <meta property="og:site_name" content="SAFENET-VPN">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="VPN для Яндекс.Станции — Алиса за границей">
+  <meta name="twitter:description" content="Как настроить VPN для работы Яндекс-экосистемы за границей. Алиса, умный дом, решение геоблокировок.">
+  <meta name="twitter:image" content="https://dostup-plus.github.io/images/og-safenet.jpg">
+
+  <!-- Иконки -->
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="SAFENET-VPN — Руководства по VPN" href="/rss.xml">
+
+  <!-- ЕДИНЫЙ CSS КОД (С ИСПРАВЛЕНИЯМИ) -->
+  <style>
+    /* === ОСНОВНЫЕ ПЕРЕМЕННЫЕ === */
+    :root{
+      --bg:#0b1020; --card:#11183a; --text:#e9eefc; --muted:#aab3d9; 
+      --accent:#4da3ff; --accent-2:#7de2d1; --ok:#29c773; --warn:#ffb020; --err:#ff5c5c;
+      --yandex:#fc3f1c;
+    }
+
+    /* === БАЗОВЫЕ СТИЛИ === */
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* === LAYOUT === */
+    .container{max-width:1050px;margin:0 auto;padding:20px}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:24px}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}}
+
+    /* === НАВИГАЦИЯ === */
+    .breadcrumbs{font-size:.9rem;color:var(--muted);margin:12px 0}
+    .breadcrumbs a{color:var(--muted)}
+
+    /* === HERO СЕКЦИЯ === */
+    .hero{background:linear-gradient(135deg,rgba(252,63,28,.15),rgba(125,226,209,.12));border:1px solid rgba(252,63,28,.25);border-radius:16px;padding:28px;margin:16px 0}
+    .hero h1{margin:0 0 10px 0;font-size:2rem}
+    .hero p{margin:0 0 16px 0;color:var(--muted)}
+    .badge{display:inline-block;background:rgba(252,63,28,.15);border:1px solid rgba(252,63,28,.4);color:#ffe4e1;padding:2px 8px;border-radius:999px;font-size:.8rem}
+
+    /* === КНОПКИ (ПОЛНОСТЬЮ ИСПРАВЛЕНО) === */
+    .cta-row{display:flex;flex-wrap:wrap;gap:10px}
+    .btn{display:inline-block;background:var(--accent);color:#061229;padding:12px 16px;border-radius:10px;font-weight:700;border:none;cursor:pointer}
+    .btn:hover{text-decoration:none;filter:brightness(1.05)}
+    .btn.secondary{background:transparent;border:1px solid var(--accent);color:var(--text)}
+    .btn.norm{background:var(--ok);color:#061229}
+    .btn.yandex{background:var(--yandex);color:#fff}
+    .btn-card{display:inline-block;background:var(--accent);color:#061229;padding:8px 14px;border-radius:8px;font-size:.9rem;font-weight:600}
+    .btn-card.norm{background:var(--ok);color:#061229}
+    .btn-card.yandex{background:var(--yandex);color:#fff}
+    .btn-test{display:inline-block;background:var(--ok);color:#061229;padding:12px 20px;border-radius:10px;font-weight:700;font-size:1rem;margin:8px}
+
+    /* === КАРТОЧКИ === */
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px}
+    
+    /* === ТИПОГРАФИКА === */
+    h2{margin-top:28px}
+    h3{margin-top:20px}
+    .small{font-size:.9rem}
+    .muted{color:var(--muted)}
+    .ok{color:var(--ok);font-weight:600}
+
+    /* === СПЕЦИАЛЬНЫЕ БЛОКИ === */
+    .note{border-left:3px solid var(--accent-2);padding-left:12px;color:#cfe5ff}
+    .warn{border-left:3px solid var(--warn);padding-left:12px}
+    .yandex-tip{border-left:3px solid var(--yandex);padding-left:12px;background:rgba(252,63,28,.08);border-radius:0 8px 8px 0;padding:12px 12px 12px 16px}
+    
+    /* === СПИСКИ === */
+    ul.check>li::marker{content:"✔ ";color:var(--ok)}
+    ul.cross>li::marker{content:"✖ ";color:var(--err)}
+    .also ul{columns:2;gap:24px}
+    @media(max-width:680px){.also ul{columns:1}}
+    
+    /* === TOC === */
+    .toc li{margin:6px 0}
+
+    /* === CTA В ФУТЕРЕ === */
+    .footer-cta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+    /* === СЕТКИ КАРТОЧЕК === */
+    .vpn-cards, .device-cards, .problem-cards, .method-cards{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:20px 0
+    }
+    .vpn-card, .device-card, .problem-card, .method-card{
+      border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:20px;background:rgba(17,24,58,.3);transition:border-color .2s;position:relative
+    }
+    .vpn-card:hover, .device-card:hover, .problem-card:hover, .method-card:hover{border-color:var(--accent)}
+    .vpn-card h3, .device-card h3, .problem-card h3, .method-card h3{margin:0 0 8px 0;color:var(--accent)}
+    .vpn-card .desc, .device-card .desc, .problem-card .desc, .method-card .desc{color:var(--muted);font-size:.9rem;margin:8px 0 12px 0}
+    .vpn-card .meta, .device-card .meta, .problem-card .meta, .method-card .meta{
+      font-size:.8rem;color:var(--muted);margin:8px 0;display:flex;flex-wrap:wrap;gap:8px
+    }
+    .vpn-card .meta span, .device-card .meta span, .problem-card .meta span, .method-card .meta span{
+      background:rgba(77,163,255,.1);padding:2px 6px;border-radius:4px
+    }
+
+    /* === МАРКЕРЫ СТАТУСА === */
+    .recommended, .alternative, .popular, .complex, .simple{position:relative}
+    .recommended::before, .alternative::before, .popular::before, .complex::before, .simple::before{
+      position:absolute;top:-8px;right:12px;font-size:.75rem;padding:2px 8px;border-radius:999px;font-weight:600
+    }
+    .recommended{background:linear-gradient(135deg,rgba(41,199,115,.1),rgba(125,226,209,.08));border-color:var(--ok)}
+    .recommended::before{content:"⭐ Рекомендуем";background:var(--ok);color:#061229}
+    .alternative{background:linear-gradient(135deg,rgba(125,226,209,.1),rgba(77,163,255,.08));border-color:var(--accent-2)}
+    .alternative::before{content:"🔄 Альтернатива";background:var(--accent-2);color:#061229}
+    .popular{background:linear-gradient(135deg,rgba(252,63,28,.1),rgba(252,63,28,.05));border-color:var(--yandex)}
+    .popular::before{content:"🔥 Популярно";background:var(--yandex);color:#fff}
+    .popular h3{color:var(--yandex)}
+    .complex{background:linear-gradient(135deg,rgba(255,176,32,.1),rgba(255,176,32,.05));border-color:var(--warn)}
+    .complex::before{content:"⚙️ Сложно";background:var(--warn);color:#061229}
+    .complex h3{color:var(--warn)}
+    .simple{background:linear-gradient(135deg,rgba(41,199,115,.1),rgba(125,226,209,.08));border-color:var(--ok)}
+    .simple::before{content:"😊 Просто";background:var(--ok);color:#061229}
+
+    /* КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ ПРОБЛЕМЫ С КНОПКАМИ */
+    .btn.norm::before, .btn-card.norm::before,
+    .btn.alternative::before, .btn-card.alternative::before { 
+      content: none !important; 
+    }
+
+    /* === СПЕЦИАЛЬНЫЕ БЛОКИ === */
+    .quick-test{background:rgba(41,199,115,.08);border:1px solid var(--ok);border-radius:12px;padding:20px;margin:16px 0;text-align:center}
+    .quick-test h3{color:var(--ok);margin:0 0 12px 0}
+
+    /* === ПОШАГОВЫЕ ИНСТРУКЦИИ === */
+    .steps-list{list-style:none;padding:0;margin:16px 0}
+    .steps-list li{display:flex;align-items:flex-start;margin-bottom:15px;color:var(--muted)}
+    .steps-list li strong{color:var(--text)}
+    .steps-list li .idx{
+      width:28px;height:28px;border-radius:50%;background:var(--yandex);color:#fff;
+      display:flex;align-items:center;justify-content:center;font-weight:700;
+      margin-right:12px;flex-shrink:0;font-size:.9rem
+    }
+
+    /* === АДАПТИВНОСТЬ === */
+    @media(max-width:640px){
+      .vpn-cards, .device-cards, .problem-cards, .method-cards{grid-template-columns:1fr}
+    }
+  </style>
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],
+      k.async=1;k.src=r;a.parentNode.insertBefore(k,a)
+    })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(103602117, "init", {clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/103602117" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104025851', 'ym');
+
+    ym(104025851, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/104025851" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+<link rel="canonical" href="https://dostup-plus.github.io/devices/yandex-ecosystem/">
+</head>
+<body>
+  <div class="container">
+    <!-- ХЛЕБНЫЕ КРОШКИ -->
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <a href="/">Главная</a> › <a href="/devices/">VPN для устройств</a> › <span>Яндекс-экосистема</span>
+    </nav>
+
+    <!-- HERO СЕКЦИЯ -->
+    <section class="hero">
+      <span class="badge">Яндекс-экосистема</span>
+      <h1>VPN для Яндекс.Станции и умного дома — Алиса за границей 2025</h1>
+      <p>Полное руководство по настройке VPN для работы Яндекс.Станции, Алисы, умных лампочек, розеток и других устройств Яндекс-экосистемы за границей. VPN на роутере, обход геоблокировок, решение проблем с российскими сервисами.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://t.me/SafeNetVpn_bot?start=afrrica" onclick="ym(103602117,'reachGoal','yandex_main_safenet')" rel="noopener nofollow">SAFENET‑VPN для Яндекса</a>
+        <a class="btn norm" href="https://t.me/normwpn_bot?start=partner_228691787" onclick="ym(103602117,'reachGoal','yandex_main_normvpn')" rel="noopener nofollow">Norm VPN</a>
+        <a class="btn secondary" href="#devices" onclick="ym(103602117,'reachGoal','yandex_scroll_devices')">Список устройств</a>
+      </div>
+      <p class="muted small">VPN на роутере • Российские серверы • От 126₽/мес (первый месяц 107₽)</p>
+    </section>
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <div class="grid">
+      <main>
+        <!-- Проблема с Яндекс-устройствами за границей -->
+        <section class="card">
+          <h2>🌍 Почему Яндекс-устройства не работают за границей</h2>
+          <p>Яндекс-экосистема тесно интегрирована с российскими сервисами и имеет жесткие географические ограничения. За пределами России большинство функций становятся недоступными.</p>
+
+          <div class="problem-cards">
+            <div class="problem-card popular">
+              <h3>🎤 Яндекс.Станция и Алиса</h3>
+              <div class="desc">Голосовой помощник Алиса полностью прекращает работу за границей. Нет доступа к Яндекс.Музыке, новостям, погоде, навыкам. Станция превращается в обычную Bluetooth-колонку.</div>
+              <div class="meta">
+                <span>Голосовые команды не работают</span>
+                <span>Нет доступа к навыкам</span>
+                <span>Яндекс.Музыка недоступна</span>
+                <span>Только Bluetooth остается</span>
+              </div>
+            </div>
+
+            <div class="problem-card complex">
+              <h3>💡 Умные устройства</h3>
+              <div class="desc">Умные лампочки, розетки, выключатели теряют связь с облачными сервисами Яндекса. Управление через приложение "Дом с Алисой" становится невозможным.</div>
+              <div class="meta">
+                <span>Потеря связи с облаком</span>
+                <span>Приложение не работает</span>
+                <span>Нет удаленного управления</span>
+                <span>Сценарии не выполняются</span>
+              </div>
+            </div>
+
+            <div class="problem-card complex">
+              <h3>📺 Яндекс.ТВ и медиа</h3>
+              <div class="desc">Яндекс.ТВ-приставки, встроенные сервисы в телевизорах теряют доступ к российскому контенту. Кинопоиск, Яндекс.Эфир, другие сервисы блокируются.</div>
+              <div class="meta">
+                <span>Кинопоиск заблокирован</span>
+                <span>Яндекс.Эфир недоступен</span>
+                <span>Российский контент скрыт</span>
+                <span>Приложения не загружаются</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="yandex-tip">
+            <strong>💡 Техническая причина:</strong> Яндекс определяет местоположение пользователя по IP-адресу и блокирует доступ к сервисам за пределами России и СНГ. Это связано с лицензионными ограничениями и локализацией сервисов.
+          </div>
+        </section>
+
+        <!-- Устройства Яндекс-экосистемы -->
+        <section class="card" id="devices">
+          <h2>📱 Устройства Яндекс-экосистемы и совместимость с VPN</h2>
+          <p>Разные устройства Яндекса имеют различные возможности настройки VPN. Некоторые требуют VPN на роутере, другие поддерживают прямую настройку.</p>
+
+          <div class="device-cards">
+            <div class="device-card popular">
+              <h3>🎵 Яндекс.Станция (все модели)</h3>
+              <div class="desc">Мини, Лайт, Макс, 2 — все модели требуют VPN на роутере. Прямая настройка VPN невозможна. После настройки VPN восстанавливается полная функциональность Алисы.</div>
+              <div class="meta">
+                <span>Только VPN на роутере</span>
+                <span>Полное восстановление функций</span>
+                <span>Яндекс.Музыка работает</span>
+                <span>Все навыки доступны</span>
+              </div>
+            </div>
+
+            <div class="device-card simple">
+              <h3>💡 Умные лампочки и розетки</h3>
+              <div class="desc">Все умные устройства Яндекса (лампочки, розетки, выключатели) автоматически начинают работать через VPN на роутере. Управление через приложение восстанавливается.</div>
+              <div class="meta">
+                <span>Автоматическая работа</span>
+                <span>VPN на роутере обязателен</span>
+                <span>Приложение "Дом с Алисой"</span>
+                <span>Сценарии восстанавливаются</span>
+              </div>
+            </div>
+
+            <div class="device-card complex">
+              <h3>📺 Яндекс.ТВ и приставки</h3>
+              <div class="desc">Android TV приставки поддерживают установку VPN-приложений. Встроенные в телевизоры системы требуют VPN на роутере. Восстанавливается доступ к российскому контенту.</div>
+              <div class="meta">
+                <span>Приставки: VPN-приложение</span>
+                <span>Встроенные: VPN на роутере</span>
+                <span>Кинопоиск восстанавливается</span>
+                <span>Российский контент доступен</span>
+              </div>
+            </div>
+
+            <div class="device-card simple">
+              <h3>🏠 Умные камеры и датчики</h3>
+              <div class="desc">Камеры видеонаблюдения и датчики безопасности Яндекса работают через VPN на роутере. Восстанавливается удаленный просмотр и уведомления.</div>
+              <div class="meta">
+                <span>VPN на роутере</span>
+                <span>Удаленный просмотр</span>
+                <span>Push-уведомления</span>
+                <span>Облачная запись</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Рекомендуемые VPN сервисы -->
+        <section class="card">
+          <h2>🛡️ Лучшие VPN для Яндекс-экосистемы</h2>
+          <p>Для работы Яндекс-устройств за границей нужны VPN с российскими серверами, поддержкой установки на роутер и высокой стабильностью соединения.</p>
+          
+          <div class="vpn-cards">
+            <div class="vpn-card recommended">
+              <h3>🛡️ SAFENET‑VPN</h3>
+              <div class="desc">Идеальный выбор для Яндекс-экосистемы. Стабильные российские серверы, простая настройка на роутерах, техподдержка 24/7 помогает с настройкой умного дома. Оптимизирован для потокового видео и голосовых команд.</div>
+              <div class="meta">
+                <span>Российские серверы</span>
+                <span>Настройка на роутерах</span>
+                <span>Поддержка умного дома</span>
+                <span>Оптимизация для Яндекса</span>
+              </div>
+              <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="btn-card" onclick="ym(103602117,'reachGoal','yandex_card_safenet')" rel="noopener nofollow">Подключить SAFENET‑VPN</a>
+              <p class="small muted">От 126₽/мес, первый месяц 107₽ (-15%)</p>
+            </div>
+
+            <div class="vpn-card alternative">
+              <h3>🔄 Norm VPN</h3>
+              <div class="desc">Отличная альтернатива с российскими серверами и поддержкой роутеров. Стабильное соединение для умных устройств, простая настройка, подходит для базовых потребностей Яндекс-экосистемы.</div>
+              <div class="meta">
+                <span>Российские серверы</span>
+                <span>Поддержка роутеров</span>
+                <span>Стабильное соединение</span>
+                <span>Простая настройка</span>
+              </div>
+              <a href="https://t.me/normwpn_bot?start=partner_228691787" class="btn-card norm" onclick="ym(103602117,'reachGoal','yandex_card_normvpn')" rel="noopener nofollow">Попробовать Norm VPN</a>
+              <p class="small muted">Партнерские условия через наш канал</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Методы настройки -->
+        <section class="card" id="setup">
+          <h2>⚙️ Методы настройки VPN для Яндекс-устройств</h2>
+          <p>Существует несколько способов обеспечить работу Яндекс-экосистемы за границей. Выбор метода зависит от ваших технических навыков и количества устройств.</p>
+
+          <div class="method-cards">
+            <div class="method-card recommended">
+              <h3>🌐 VPN на роутере (рекомендуется)</h3>
+              <div class="desc">Универсальное решение для всех Яндекс-устройств. Настраивается один раз на роутере, автоматически покрывает все подключенные устройства. Идеально для умного дома.</div>
+              <div class="meta">
+                <span>Покрывает все устройства</span>
+                <span>Настройка один раз</span>
+                <span>Автоматическая работа</span>
+                <span>Лучший выбор для умного дома</span>
+              </div>
+              <a href="/devices/routers/" class="btn-card yandex" onclick="ym(103602117,'reachGoal','yandex_router_guide')">Настройка на роутере</a>
+            </div>
+
+            <div class="method-card simple">
+              <h3>📱 Мобильная точка доступа</h3>
+              <div class="desc">Быстрое временное решение: включите VPN на телефоне и раздайте Wi-Fi. Яндекс.Станция подключается к этой сети и получает российский IP. Подходит для поездок.</div>
+              <div class="meta">
+                <span>Быстрое решение</span>
+                <span>Для поездок</span>
+                <span>Простая настройка</span>
+                <span>Временное использование</span>
+              </div>
+            </div>
+
+            <div class="method-card complex">
+              <h3>📺 VPN-приложения на Android TV</h3>
+              <div class="desc">Для Яндекс.ТВ приставок можно установить VPN-приложение напрямую. Простая настройка, но покрывает только одно устройство.</div>
+              <div class="meta">
+                <span>Только для приставок</span>
+                <span>Простая установка</span>
+                <span>Одно устройство</span>
+                <span>Прямая настройка</span>
+              </div>
+              <a href="/devices/smart-tv/" class="btn-card yandex" onclick="ym(103602117,'reachGoal','yandex_tv_guide')">Настройка на ТВ</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Пошаговая настройка -->
+        <section class="card">
+          <h2>📋 Пошаговая настройка VPN на роутере для Яндекс-устройств</h2>
+          <p>Самый эффективный способ обеспечить работу всей Яндекс-экосистемы — настройка VPN на роутере. Все устройства автоматически получат российский IP-адрес.</p>
+
+          <div class="note">
+            <strong>Важно:</strong> Не все роутеры поддерживают VPN-клиент. Убедитесь, что ваш роутер имеет такую функцию (например, модели ASUS, TP-Link, Keenetic).
+          </div>
+
+          <h3>🔧 Этап 1: Подготовка роутера</h3>
+          <ul class="steps-list">
+            <li><div class="idx">1</div><div><strong>Проверьте совместимость роутера</strong><br>Убедитесь, что ваш роутер поддерживает VPN-клиент (OpenVPN или WireGuard). Информацию можно найти в руководстве пользователя</div></li>
+            <li><div class="idx">2</div><div><strong>Обновите прошивку роутера</strong><br>Установите последнюю стабильную версию прошивки для максимальной совместимости и безопасности</div></li>
+            <li><div class="idx">3</div><div><strong>Получите конфигурационный файл VPN</strong><br>В личном кабинете SAFENET-VPN или Norm VPN скачайте файлы настроек для российских серверов</div></li>
+          </ul>
+
+          <h3>⚙️ Этап 2: Настройка VPN-клиента</h3>
+          <ul class="steps-list">
+            <li><div class="idx">4</div><div><strong>Войдите в веб-интерфейс роутера</strong><br>Откройте браузер и введите IP-адрес роутера (обычно 192.168.1.1 или 192.168.0.1)</div></li>
+            <li><div class="idx">5</div><div><strong>Найдите раздел VPN</strong><br>Ищите "VPN Client", "OpenVPN", "WireGuard" в разделах "Advanced" или "Дополнительно"</div></li>
+            <li><div class="idx">6</div><div><strong>Загрузите конфигурацию</strong><br>Импортируйте файл настроек российского сервера или введите параметры вручную</div></li>
+            <li><div class="idx">7</div><div><strong>Активируйте VPN</strong><br>Включите VPN-подключение и дождитесь установления соединения с российским сервером</div></li>
+          </ul>
+
+          <h3>🏠 Этап 3: Подключение Яндекс-устройств</h3>
+          <ul class="steps-list">
+            <li><div class="idx">8</div><div><strong>Подключите устройства к VPN-роутеру</strong><br>Убедитесь, что Яндекс.Станция и умные устройства подключены к Wi-Fi сети роутера с VPN</div></li>
+            <li><div class="idx">9</div><div><strong>Перезагрузите Яндекс-устройства</strong><br>Отключите и снова включите Станцию и другие устройства для получения нового IP</div></li>
+            <li><div class="idx">10</div><div><strong>Проверьте работу Алисы</strong><br>Попробуйте голосовые команды, музыку, управление умным домом</div></li>
+          </ul>
+
+          <div class="quick-test">
+            <h3>⚡ Проверка работы Яндекс-экосистемы</h3>
+            <p>Убедитесь, что все устройства получили российский IP через роутер</p>
+            <a class="btn-test" href="/diagnostics/ip-check/" onclick="ym(103602117,'reachGoal','yandex_test_connection')">Проверить IP-адрес</a>
+          </div>
+        </section>
+
+        <!-- Решение проблем -->
+        <section class="card">
+          <h2>🔧 Решение типичных проблем с Яндекс-устройствами</h2>
+          <p>Даже при правильной настройке VPN могут возникать проблемы с отдельными функциями Яндекс-экосистемы. Разберем самые частые проблемы и их решения.</p>
+
+          <h3>🎤 Алиса не отвечает или говорит "Я вас не понимаю"</h3>
+          <ul class="check">
+            <li><strong>Проверьте подключение к интернету:</strong> Убедитесь, что Станция подключена к Wi-Fi с VPN</li>
+            <li><strong>Перезагрузите Станцию:</strong> Отключите питание на 10 секунд, включите снова</li>
+            <li><strong>Проверьте IP-адрес:</strong> Станция должна получить российский IP через роутер</li>
+            <li><strong>Смените VPN-сервер:</strong> Попробуйте другой российский сервер</li>
+          </ul>
+
+          <h3>🎵 Яндекс.Музыка не воспроизводится</h3>
+          <ul class="check">
+            <li><strong>Проверьте подписку:</strong> Убедитесь, что подписка Яндекс.Плюс активна</li>
+            <li><strong>Очистите кэш:</strong> Перезагрузите роутер и Станцию</li>
+            <li><strong>Проверьте скорость VPN:</strong> Для музыки нужно минимум 1 Мбит/с</li>
+            <li><strong>Попробуйте другой сервер:</strong> Смените российский сервер на менее загруженный</li>
+          </ul>
+
+          <h3>💡 Умные устройства не отвечают</h3>
+          <ul class="check">
+            <li><strong>Проверьте подключение к роутеру:</strong> Все устройства должны быть в одной сети с VPN</li>
+            <li><strong>Перезапустите приложение:</strong> Закройте и откройте "Дом с Алисой"</li>
+            <li><strong>Переподключите устройства:</strong> Удалите и добавьте устройства заново в приложении</li>
+            <li><strong>Проверьте статус в приложении:</strong> Устройства должны показывать "Онлайн"</li>
+          </ul>
+
+          <div class="warn">
+            <strong>⚠️ Если проблемы продолжаются:</strong> Обратитесь в техподдержку VPN-сервиса. Специалисты помогут настроить роутер и диагностировать проблемы с умными устройствами.
+          </div>
+        </section>
+
+        <!-- Блок "Читайте также" -->
+        <section class="card also">
+          <h2>Читайте также</h2>
+          <ul>
+            <li><a href="/devices/routers/">VPN на роутере — детальная настройка</a></li>
+            <li><a href="/devices/smart-tv/">VPN для Smart TV — телевизоры и приставки</a></li>
+            <li><a href="/streaming/youtube/">VPN для YouTube — российский контент</a></li>
+            <li><a href="/diagnostics/ip-check/">Проверка IP-адреса — диагностика VPN</a></li>
+            <li><a href="/guide/selection-criteria/">Как выбрать VPN — критерии выбора</a></li>
+            <li><a href="/troubleshooting/not-working/">VPN не работает — решение проблем</a></li>
+          </ul>
+        </section>
+
+        <!-- Финальный CTA -->
+        <section class="card">
+          <div class="footer-cta">
+            <div>
+              <h3>Готовы вернуть Алису и умный дом за границей?</h3>
+              <p class="muted">Выбирайте VPN с российскими серверами и поддержкой роутеров для полного восстановления функциональности Яндекс-экосистемы.</p>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <a class="btn yandex" href="https://t.me/SafeNetVpn_bot?start=afrrica" onclick="ym(103602117,'reachGoal','yandex_footer_safenet')" rel="noopener nofollow">SAFENET‑VPN (126₽/мес)</a>
+              <a class="btn norm" href="https://t.me/normwpn_bot?start=partner_228691787" onclick="ym(103602117,'reachGoal','yandex_footer_normvpn')" rel="noopener nofollow">Norm VPN</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- САЙДБАР -->
+      <aside>
+        <div class="card toc" aria-label="Содержание">
+          <strong>Содержание</strong>
+          <ol>
+            <li><a href="#devices">Яндекс-устройства</a></li>
+            <li><a href="#setup">Методы настройки</a></li>
+            <li><a href="#router-setup">Настройка на роутере</a></li>
+            <li><a href="#troubleshooting">Решение проблем</a></li>
+          </ol>
+        </div>
+
+        <div class="card">
+          <h3>💡 Быстрые ссылки</h3>
+          <ul style="list-style:none;padding:0">
+            <li style="margin:8px 0"><a href="/devices/routers/">🌐 VPN на роутере</a></li>
+            <li style="margin:8px 0"><a href="/devices/smart-tv/">📺 VPN для Smart TV</a></li>
+            <li style="margin:8px 0"><a href="/diagnostics/ip-check/">⚡ Проверка IP</a></li>
+            <li style="margin:8px 0"><a href="/streaming/">🎵 VPN для стриминга</a></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Техническая поддержка</h3>
+          <p class="small muted">Настройка умного дома через VPN может быть сложной. Наши эксперты помогут настроить роутер и диагностировать проблемы с Яндекс-устройствами.</p>
+          <div class="cta-row">
+            <a class="btn" href="https://t.me/SafeNetVpn_bot?start=afrrica" onclick="ym(103602117,'reachGoal','yandex_sidebar_safenet')" rel="noopener nofollow">SAFENET‑VPN</a>
+            <a class="btn norm" href="https://t.me/normwpn_bot?start=partner_228691787" onclick="ym(103602117,'reachGoal','yandex_sidebar_normvpn')" rel="noopener nofollow">Norm VPN</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- ФУТЕР -->
+    <footer class="muted small" style="margin:24px 0;">
+      © SAFENET‑VPN. Информация носит справочный характер. Яндекс-устройства требуют российского IP-адреса для полной функциональности.
+    </footer>
+  </div>
+
+  <!-- SCHEMA.ORG РАЗМЕТКА -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "VPN для Яндекс.Станции и умного дома: настройка Алисы за границей 2025",
+    "description": "Полное руководство по настройке VPN для работы Яндекс-экосистемы за границей. VPN на роутере, решение проблем с геоблокировками.",
+    "image": "https://dostup-plus.github.io/images/og-safenet.jpg",
+    "totalTime": "PT45M",
+    "estimatedCost": {
+      "@type": "MonetaryAmount",
+      "currency": "RUB",
+      "value": "126"
+    },
+    "tool": [
+      {
+        "@type": "HowToTool",
+        "name": "VPN с российскими серверами"
+      },
+      {
+        "@type": "HowToTool",
+        "name": "Роутер с поддержкой VPN"
+      },
+      {
+        "@type": "HowToTool",
+        "name": "SAFENET-VPN"
+      },
+      {
+        "@type": "HowToTool", 
+        "name": "Norm VPN"
+      }
+    ],
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Выбор VPN с российскими серверами",
+        "text": "Выберите VPN-сервис с поддержкой роутеров и стабильными российскими серверами"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Настройка VPN на роутере",
+        "text": "Настройте VPN на роутере для покрытия всех Яндекс-устройств в сети"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Подключение устройств",
+        "text": "Подключите Яндекс-устройства к Wi-Fi сети с VPN и проверьте функциональность"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Тестирование и настройка",
+        "text": "Протестируйте работу Алисы, умных устройств и решите возникающие проблемы"
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Главная",
+        "item": "https://dostup-plus.github.io/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "VPN для устройств",
+        "item": "https://dostup-plus.github.io/devices/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Яндекс-экосистема",
+        "item": "https://dostup-plus.github.io/devices/yandex-ecosystem/"
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Почему Яндекс.Станция не работает за границей?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Яндекс определяет местоположение по IP-адресу и блокирует доступ к сервисам за пределами России. Алиса, музыка, навыки становятся недоступными без российского IP."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Как настроить VPN для Яндекс.Станции?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Лучший способ — настройка VPN на роутере с российским сервером. Станция не поддерживает прямую настройку VPN, поэтому нужно обеспечить российский IP для всей сети."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Будут ли работать умные устройства Яндекса через VPN?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, все умные устройства (лампочки, розетки, камеры) автоматически начинают работать через VPN на роутере. Восстанавливается управление через приложение и голосовые команды."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Какой VPN лучше для Яндекс-экосистемы?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Нужны VPN с российскими серверами и поддержкой роутеров. Рекомендуются SAFENET-VPN и Norm VPN с их стабильными соединениями и техподдержкой настройки умного дома."
+        }
+      }
+    ]
+  }
+  </script>
+</body>
+</html>
+

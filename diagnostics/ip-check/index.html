@@ -1,0 +1,551 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Проверка IP адреса и DNS утечек — тест VPN на безопасность | SAFENET‑VPN</title>
+  <meta name="description" content="Онлайн проверка IP адреса, DNS и WebRTC утечек. Убедитесь, что ваш VPN работает правильно и защищает конфиденциальность. Пошаговые инструкции по устранению утечек.">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <meta name="robots" content="index,follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="Проверка IP адреса и DNS утечек — тест VPN на безопасность">
+  <meta property="og:description" content="Комплексная проверка VPN: IP адрес, DNS утечки, WebRTC. Онлайн инструмент + инструкции по устранению проблем безопасности.">
+  <meta property="og:url" content="https://dostup-world.github.io/diagnostics/ip-check/">
+  <meta property="og:image" content="https://dostup-world.github.io/images/og-safenet.jpg">
+  <meta property="og:site_name" content="SAFENET-VPN">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Проверка IP адреса и DNS утечек — тест VPN на безопасность">
+  <meta name="twitter:description" content="Онлайн тест VPN: проверка IP, DNS, WebRTC утечек. Убедитесь в защите конфиденциальности.">
+  <meta property="twitter:image" content="https://dostup-world.github.io/images/og-safenet.jpg">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <!-- RSS лента — ДОБАВИТЬ СЮДА -->
+  <link rel="alternate" type="application/rss+xml" title="SAFENET-VPN — Руководства по VPN" href="/rss.xml">
+
+  <style>
+    :root{
+      --bg:#0b1020; --card:#11183a; --text:#e9eefc; --muted:#aab3d9; --accent:#4da3ff; --accent-2:#7de2d1; --ok:#29c773; --warn:#ffb020; --err:#ff5c5c;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1050px;margin:0 auto;padding:20px}
+    .breadcrumbs{font-size:.9rem;color:var(--muted);margin:12px 0}
+    .breadcrumbs a{color:var(--muted)}
+    .hero{background:linear-gradient(135deg,rgba(77,163,255,.15),rgba(125,226,209,.12));border:1px solid rgba(125,226,209,.25);border-radius:16px;padding:28px;margin:16px 0}
+    .hero h1{margin:0 0 10px 0;font-size:2rem}
+    .hero p{margin:0 0 16px 0;color:var(--muted)}
+    .cta-row{display:flex;flex-wrap:wrap;gap:10px}
+    .btn{display:inline-block;background:var(--accent);color:#061229;padding:12px 16px;border-radius:10px;font-weight:700}
+    .btn.secondary{background:transparent;border:1px solid var(--accent);color:var(--text)}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:24px}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px}
+    h2{margin-top:28px}
+    h3{margin-top:20px}
+    .toc li{margin:6px 0}
+    .badge{display:inline-block;background:rgba(77,163,255,.15);border:1px solid rgba(77,163,255,.4);color:#cfe5ff;padding:2px 8px;border-radius:999px;font-size:.8rem}
+    .note{border-left:3px solid var(--accent-2);padding-left:12px;color:#cfe5ff}
+    .warn{border-left:3px solid var(--warn);padding-left:12px}
+    .ok{color:var(--ok);font-weight:600}
+    ul.check>li::marker{content:"✔ ";color:var(--ok)}
+    .also ul{columns:2;gap:24px}
+    @media(max-width:680px){.also ul{columns:1}}
+    .muted{color:var(--muted)}
+    .footer-cta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .small{font-size:.9rem}
+    code.inline{background:#0d1330;border:1px solid rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
+    .test-section{background:rgba(17,24,58,.4);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;margin:16px 0}
+    .test-result{padding:12px;border-radius:8px;margin:8px 0;font-family:monospace;font-size:.95rem}
+    .test-loading{background:rgba(255,176,32,.1);border:1px solid var(--warn);color:var(--warn)}
+    .test-success{background:rgba(41,199,115,.1);border:1px solid var(--ok);color:var(--ok)}
+    .test-error{background:rgba(255,92,92,.1);border:1px solid var(--err);color:var(--err)}
+    .kv{display:grid;grid-template-columns:140px 1fr;gap:8px;margin:6px 0;align-items:start}
+    .val{font-weight:600}
+    .services{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+    @media(max-width:640px){.services{grid-template-columns:1fr}}
+    .service-card{border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px;text-align:center}
+    .service-card h4{margin:0 0 6px 0;font-size:.95rem}
+    .btn-small{display:inline-block;background:var(--accent);color:#061229;padding:6px 12px;border-radius:6px;font-size:.85rem;font-weight:600}
+  </style>
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],
+      k.async=1;k.src=r;a.parentNode.insertBefore(k,a)
+    })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(103602117, "init", {clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/103602117" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+  <!-- /Yandex.Metrika -->
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104025851', 'ym');
+
+    ym(104025851, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/104025851" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+<link rel="canonical" href="https://dostup-world.github.io/diagnostics/ip-check/">
+</head>
+<body>
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <a href="/">Главная</a> › <a href="/diagnostics/">Диагностика</a> › <span>Проверка IP</span>
+    </nav>
+
+    <section class="hero">
+      <span class="badge">Онлайн диагностика</span>
+      <h1>Проверка IP адреса и DNS утечек — тест VPN на безопасность</h1>
+      <p>Убедитесь, что ваш VPN работает правильно и полностью защищает конфиденциальность. Проверьте IP адрес, DNS серверы и WebRTC утечки одним кликом. Получите подробные инструкции по устранению найденных проблем.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://t.me/SafeNetVpn_bot?start=afrrica" onclick="ym(103602117,'reachGoal','ipcheck_main_cta')" rel="noopener nofollow">Получить надежный VPN за 126₽/мес</a>
+        <a class="btn secondary" href="#test-tool" onclick="ym(103602117,'reachGoal','ipcheck_start_test')">Проверить IP сейчас</a>
+      </div>
+      <p class="muted small">SAFENET‑VPN: первый месяц 107₽ • Защита от утечек • Поддержка 24/7</p>
+    </section>
+
+    <aside class="card toc" aria-label="Содержание">
+      <strong>Содержание</strong>
+      <ol>
+        <li><a href="#test-tool">Онлайн проверка IP</a></li>
+        <li><a href="#why-check">Зачем проверять утечки</a></li>
+        <li><a href="#types-leaks">Типы утечек: IP, DNS, WebRTC</a></li>
+        <li><a href="#how-check">Как проверить каждый тип</a></li>
+        <li><a href="#fix-leaks">Устранение утечек</a></li>
+        <li><a href="#services">Сервисы для проверки</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ol>
+    </aside>
+
+    <div class="grid">
+      <main>
+        <section id="test-tool" class="card">
+          <h2>Онлайн проверка IP и утечек</h2>
+          <div class="test-section">
+            <h3>Быстрый тест VPN</h3>
+            <p id="status" class="muted">Нажмите кнопку для запуска комплексной проверки</p>
+            
+            <button id="runTestBtn" onclick="startFullTest()" class="btn" style="margin:12px 0;">Запустить проверку</button>
+            
+            <div id="results" style="display:none;">
+              <h4>Результаты проверки:</h4>
+              <div class="kv"><div>Внешний IP:</div><div class="val" id="ip4">—</div></div>
+              <div class="kv"><div>Страна:</div><div class="val" id="country">—</div></div>
+              <div class="kv"><div>Город:</div><div class="val" id="city">—</div></div>
+              <div class="kv"><div>Провайдер:</div><div class="val" id="isp">—</div></div>
+              <div class="kv"><div>ASN:</div><div class="val" id="asn">—</div></div>
+              <div class="kv"><div>IPv6:</div><div class="val" id="ip6">—</div></div>
+              <div class="kv"><div>WebRTC статус:</div><div class="val" id="webrtc-status">—</div></div>
+            </div>
+            
+            <div id="interpretation" style="display:none;margin-top:16px;">
+              <h4>Интерпретация результатов:</h4>
+              <div id="result-analysis"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="why-check" class="card">
+          <h2>Зачем проверять VPN на утечки</h2>
+          <p>Даже при активном VPN ваши данные могут «просачиваться» наружу из-за неправильных настроек или уязвимостей в системе. Это серьезно угрожает конфиденциальности и может свести на нет все преимущества VPN.</p>
+          
+          <ul class="check">
+            <li><strong>Защита конфиденциальности:</strong> утечки раскрывают реальный IP, местоположение и историю посещений</li>
+            <li><strong>Обход блокировок:</strong> сервисы могут обнаружить VPN через утечки и заблокировать доступ</li>
+            <li><strong>Безопасность данных:</strong> утечки делают вас уязвимым для слежки и атак</li>
+            <li><strong>Соответствие ожиданиям:</strong> убедитесь, что VPN работает как заявлено</li>
+          </ul>
+        </section>
+
+        <section id="types-leaks" class="card">
+          <h2>Типы утечек: IP, DNS, WebRTC</h2>
+          
+          <h3>IP утечка</h3>
+          <p>Самая очевидная проблема — когда ваш реальный IP адрес виден несмотря на активный VPN. Означает, что VPN туннель не установлен или работает некорректно.</p>
+          
+          <h3>DNS утечка</h3>
+          <p>Даже при скрытом IP, DNS запросы (преобразование доменных имен в IP адреса) могут идти напрямую к провайдеру, а не через VPN. Это позволяет провайдеру видеть, какие сайты вы посещаете.</p>
+          
+          <h3>WebRTC утечка</h3>
+          <p>WebRTC (Web Real-Time Communication) — технология браузера для видеозвонков и стриминга. Может раскрыть реальный IP адрес через специальные запросы, обходя VPN туннель.</p>
+          
+          <div class="note">
+            <strong>Важно:</strong> Каждый тип утечки требует своих методов обнаружения и устранения. Комплексная проверка — единственный способ убедиться в полной защите.
+          </div>
+        </section>
+
+        <section id="how-check" class="card">
+          <h2>Как проверить каждый тип утечки</h2>
+          
+          <h3>Проверка IP адреса</h3>
+          <ol>
+            <li><strong>Отключите VPN</strong> и проверьте IP на любом сервисе (например, 2ip.ru)</li>
+            <li><strong>Включите VPN</strong> и подключитесь к серверу</li>
+            <li><strong>Повторите проверку</strong> — IP должен измениться на адрес VPN сервера</li>
+          </ol>
+          
+          <h3>Проверка DNS утечек</h3>
+          <ol>
+            <li>С включенным VPN откройте <a href="https://dnsleaktest.com" target="_blank" rel="noopener">dnsleaktest.com</a></li>
+            <li>Нажмите «Extended test» для полной проверки</li>
+            <li>Убедитесь, что все DNS серверы принадлежат VPN провайдеру, а не вашему интернет-провайдеру</li>
+          </ol>
+          
+          <h3>Проверка WebRTC утечек</h3>
+          <ol>
+            <li>С включенным VPN откройте <a href="https://browserleaks.com/webrtc" target="_blank" rel="noopener">browserleaks.com/webrtc</a></li>
+            <li>Проверьте раздел «Public IP Address»</li>
+            <li>Там должен отображаться только IP VPN сервера, не ваш реальный IP</li>
+          </ol>
+        </section>
+
+        <section id="fix-leaks" class="card">
+          <h2>Устранение обнаруженных утечек</h2>
+          
+          <h3>IP утечки</h3>
+          <ul>
+            <li><strong>Перезапустите VPN клиент</strong> и попробуйте другой сервер</li>
+            <li><strong>Смените протокол</strong> (WireGuard ↔ OpenVPN, UDP ↔ TCP)</li>
+            <li><strong>Включите Kill Switch</strong> для блокировки интернета при обрыве VPN</li>
+            <li><strong>Проверьте настройки брандмауэра</strong> — он может блокировать VPN</li>
+          </ul>
+          
+          <h3>DNS утечки</h3>
+          <ul>
+            <li><strong>Используйте DNS из VPN профиля</strong> — большинство конфигураций включают DNS автоматически</li>
+            <li><strong>Ручная настройка DNS:</strong> 1.1.1.1 (Cloudflare), 8.8.8.8 (Google)</li>
+            <li><strong>Отключите IPv6</strong> временно в настройках сетевого адаптера</li>
+            <li><strong>Очистите DNS кеш:</strong> <code class="inline">ipconfig /flushdns</code> в командной строке</li>
+          </ul>
+          
+          <h3>WebRTC утечки</h3>
+          <ul>
+            <li><strong>Chrome:</strong> установите uBlock Origin → Настройки → включите «Prevent WebRTC from leaking local IP»</li>
+            <li><strong>Firefox:</strong> about:config → media.peerconnection.enabled = false</li>
+            <li><strong>Safari:</strong> Разработка → WebRTC → отключите Legacy WebRTC API</li>
+            <li><strong>Универсально:</strong> используйте браузер с встроенной защитой от WebRTC</li>
+          </ul>
+          
+          <div class="warn">
+            <strong>Важно:</strong> После устранения утечек обязательно повторите тесты для подтверждения исправления.
+          </div>
+        </section>
+
+        <section id="services" class="card">
+          <h2>Лучшие сервисы для проверки</h2>
+          <div class="services">
+            <div class="service-card">
+              <h4>IPLeak.net</h4>
+              <p class="small">Комплексная проверка: IP, DNS, WebRTC, торрент IP</p>
+              <a href="https://ipleak.net" target="_blank" class="btn-small" onclick="ym(103602117,'reachGoal','ipcheck_ipleak')">Перейти</a>
+            </div>
+            <div class="service-card">
+              <h4>DNSLeakTest.com</h4>
+              <p class="small">Специализированный тест DNS утечек</p>
+              <a href="https://dnsleaktest.com" target="_blank" class="btn-small" onclick="ym(103602117,'reachGoal','ipcheck_dnstest')">Перейти</a>
+            </div>
+            <div class="service-card">
+              <h4>BrowserLeaks.com</h4>
+              <p class="small">WebRTC, отпечаток браузера, часовой пояс</p>
+              <a href="https://browserleaks.com" target="_blank" class="btn-small" onclick="ym(103602117,'reachGoal','ipcheck_browserleaks')">Перейти</a>
+            </div>
+            <div class="service-card">
+              <h4>WhatIsMyIP.com</h4>
+              <p class="small">Простая проверка IP и местоположения</p>
+              <a href="https://whatismyip.com" target="_blank" class="btn-small" onclick="ym(103602117,'reachGoal','ipcheck_whatismyip')">Перейти</a>
+            </div>
+          </div>
+          <p class="muted small">Рекомендуем проверить на 2-3 разных сервисах для большей точности.</p>
+        </section>
+
+        <section id="faq" class="card">
+          <h2>Частые вопросы</h2>
+          
+          <h3>Как часто нужно проверять VPN на утечки?</h3>
+          <p>Рекомендуется проверять при первом подключении, смене сервера, после обновления ПО или при подозрении на проблемы с безопасностью.</p>
+
+          <h3>Почему IP показывает неправильную страну?</h3>
+          <p>Базы геолокации IP не всегда точны. Главное — чтобы IP принадлежал VPN провайдеру, а не вашему интернет-провайдеру.</p>
+
+          <h3>Опасны ли DNS утечки?</h3>
+          <p>Да, DNS утечки позволяют провайдеру видеть историю посещений сайтов, даже с включенным VPN. Это серьезно нарушает приватность.</p>
+
+          <h3>Можно ли полностью избежать WebRTC утечек?</h3>
+          <p>Да, отключив WebRTC в браузере или используя специальные расширения. Но это может нарушить работу видеозвонков.</p>
+
+          <h3>Что делать, если тесты показывают утечки?</h3>
+          <p>Смените VPN сервер, проверьте настройки DNS, отключите IPv6, используйте расширения для WebRTC. Если проблема сохраняется — обратитесь в поддержку.</p>
+
+          <h3>Влияют ли утечки на безопасность?</h3>
+          <p>Утечки могут полностью скомпрометировать вашу анонимность и сделать использование VPN бессмысленным. Регулярная проверка критически важна.</p>
+        </section>
+
+        <section class="card also">
+          <h2>Читайте также</h2>
+          <ul>
+            <li><a href="/troubleshooting/not-working/">VPN не работает — решение проблем</a></li>
+            <li><a href="/guide/vpn-fundamentals/">Что такое VPN простыми словами</a></li>
+            <li><a href="/guide/selection-criteria/">Как выбрать надежный VPN</a></li>
+            <li><a href="/devices/windows/">VPN для Windows</a></li>
+            <li><a href="/devices/android/">VPN для Android</a></li>
+            <li><a href="/streaming/netflix/">VPN для Netflix</a></li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <div class="footer-cta">
+            <div>
+              <h3>Надежная защита без утечек: SAFENET‑VPN</h3>
+              <p class="muted">DNS leak protection, kill switch, проверенные серверы. От 126₽/мес (первый месяц 107₽).</p>
+            </div>
+            <a class="btn" href="https://t.me/SafeNetVpn_bot?start=afrrica" onclick="ym(103602117,'reachGoal','ipcheck_footer_cta')" rel="noopener nofollow">Начать в Telegram</a>
+          </div>
+        </section>
+      </main>
+
+      <aside>
+        <div class="card">
+          <h3>Быстрые тесты</h3>
+          <ul class="small">
+            <li><strong>IP:</strong> <a href="https://2ip.ru" target="_blank">2ip.ru</a></li>
+            <li><strong>DNS:</strong> <a href="https://dnsleaktest.com" target="_blank">dnsleaktest.com</a></li>
+            <li><strong>WebRTC:</strong> <a href="https://browserleaks.com/webrtc" target="_blank">browserleaks.com</a></li>
+            <li><strong>Комплексно:</strong> <a href="https://ipleak.net" target="_blank">ipleak.net</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Нужна помощь с утечками?</h3>
+          <p class="small muted">Поможем настроить VPN без утечек IP/DNS/WebRTC. Техподдержка 24/7.</p>
+          <a class="btn" href="https://t.me/SafeNetVpn_bot?start=afrrica" onclick="ym(103602117,'reachGoal','ipcheck_sidebar_cta')" rel="noopener nofollow">Получить помощь</a>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="muted small" style="margin:24px 0;">
+      © SAFENET‑VPN. Проверяйте безопасность VPN регулярно.
+    </footer>
+  </div>
+
+  <script>
+    async function startFullTest() {
+      const $ = id => document.getElementById(id);
+      const status = $('status');
+      const results = $('results');
+      const interpretation = $('interpretation');
+      const runBtn = $('runTestBtn');
+      
+      // Reset and show loading
+      status.textContent = 'Выполняем комплексную проверку...';
+      results.style.display = 'none';
+      interpretation.style.display = 'none';
+      runBtn.disabled = true;
+      runBtn.textContent = 'Проверяем...';
+
+      let ipv4 = '—', ipv6 = '—', country = '—', city = '—', isp = '—', asn = '—';
+      let webrtcIPs = [];
+      let ipv6Present = false;
+
+      try {
+        // Check IPv4
+        const r4 = await fetch('https://api.ipify.org?format=json', {cache: 'no-store'});
+        if (r4.ok) {
+          const j4 = await r4.json();
+          if (j4.ip) ipv4 = j4.ip;
+        }
+
+        // Check IPv6 with timeout
+        try {
+          const r6 = await Promise.race([
+            fetch('https://api6.ipify.org?format=json', {cache: 'no-store'}),
+            new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 4000))
+          ]);
+          if (r6 && r6.ok) {
+            const j6 = await r6.json();
+            if (j6.ip) { ipv6 = j6.ip; ipv6Present = true; }
+          }
+        } catch(e) { ipv6Present = false; }
+
+        // Get geo info
+        const rgeo = await fetch('https://ipapi.co/json/', {cache: 'no-store'});
+        if (rgeo.ok) {
+          const j = await rgeo.json();
+          country = j.country_name || '—';
+          city = j.city || '—';
+          isp = j.org || '—';
+          asn = j.asn || '—';
+          if (ipv4 === '—' && j.ip) ipv4 = j.ip;
+        }
+
+        // WebRTC check
+        webrtcIPs = await getWebRTCIps(5000);
+
+      } catch(error) {
+        console.error('Test error:', error);
+      }
+
+      // Update UI
+      $('ip4').textContent = ipv4;
+      $('ip6').textContent = ipv6Present ? ipv6 : 'Не обнаружен';
+      $('country').textContent = country;
+      $('city').textContent = city;
+      $('isp').textContent = isp;
+      $('asn').textContent = asn;
+
+      // WebRTC analysis
+      const privRanges = [/^10\./, /^192\.168\./, /^172\.(1[6-9]|2\d|3[0-1])\./, /^127\./, /^0\./, /^169\.254\./];
+      const isPrivate = ip => privRanges.some(rx => rx.test(ip));
+      const pubWebRTCIPs = webrtcIPs.filter(ip => !isPrivate(ip));
+      
+      let webrtcStatus = 'Не обнаружено утечек';
+      if (pubWebRTCIPs.length) {
+        const hasLeak = pubWebRTCIPs.some(ip => ip !== ipv4 && ip !== ipv6);
+        webrtcStatus = hasLeak ? '⚠️ Возможна утечка' : '✅ Защищено';
+      }
+      $('webrtc-status').innerHTML = webrtcStatus;
+
+      // Analysis
+      let analysis = '';
+      if (ipv4 !== '—') {
+        const isVPN = !isp.toLowerCase().includes('ростелеком') && 
+                      !isp.toLowerCase().includes('мтс') && 
+                      !isp.toLowerCase().includes('билайн') &&
+                      !isp.toLowerCase().includes('мегафон');
+        
+        if (isVPN) {
+          analysis += '<div class="test-result test-success">✅ IP адрес успешно изменен через VPN</div>';
+        } else {
+          analysis += '<div class="test-result test-error">❌ Возможно, VPN не активен - виден IP провайдера</div>';
+        }
+      }
+
+      if (ipv6Present) {
+        analysis += '<div class="test-result test-error">⚠️ IPv6 активен - убедитесь, что он туннелируется через VPN</div>';
+      } else {
+        analysis += '<div class="test-result test-success">✅ IPv6 отключен или недоступен</div>';
+      }
+
+      if (webrtcStatus.includes('утечка')) {
+        analysis += '<div class="test-result test-error">❌ WebRTC утечка обнаружена - используйте расширения для блокировки</div>';
+      }
+
+      $('result-analysis').innerHTML = analysis;
+
+      // Show results
+      results.style.display = 'block';
+      interpretation.style.display = 'block';
+      status.textContent = 'Проверка завершена. Проанализируйте результаты выше.';
+      runBtn.disabled = false;
+      runBtn.textContent = 'Повторить проверку';
+
+      // Analytics
+      ym(103602117, 'reachGoal', 'ipcheck_test_completed');
+    }
+
+    function getWebRTCIps(timeoutMs = 5000) {
+      return new Promise(resolve => {
+        const ips = new Set();
+        let done = false;
+        const finish = () => { if (!done) { done = true; resolve(Array.from(ips)); } };
+        
+        try {
+          const pc = new RTCPeerConnection({iceServers: [{urls: 'stun:stun.l.google.com:19302'}]});
+          pc.onicecandidate = e => {
+            if (e && e.candidate && e.candidate.candidate) {
+              const c = e.candidate.candidate;
+              const m = c.match(/(?:candidate:.*? )(\d{1,3}(?:\.\d{1,3}){3})|([0-9a-fA-F:]+)(?:\s|$)/);
+              if (m) {
+                const ip = (m[1] || m[2] || '').trim();
+                if (ip) ips.add(ip);
+              }
+            }
+          };
+          pc.createDataChannel('test');
+          pc.createOffer().then(o => pc.setLocalDescription(o));
+          const t = setTimeout(() => { pc.close(); finish(); }, timeoutMs);
+          pc.onicegatheringstatechange = () => {
+            if (pc.iceGatheringState === 'complete') { clearTimeout(t); pc.close(); finish(); }
+          };
+        } catch(e) { finish(); }
+      });
+    }
+
+    // Auto-run test on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      // Small delay to ensure page is fully loaded
+      setTimeout(startFullTest, 500);
+    });
+  </script>
+
+  <!-- Schema.org JSON-LD: HowTo -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Как проверить VPN на утечки IP, DNS и WebRTC",
+    "description": "Пошаговая инструкция по проверке работы VPN: тест IP адреса, DNS утечек, WebRTC утечек. Устранение найденных проблем безопасности.",
+    "mainEntityOfPage": "https://dostup-world.github.io/diagnostics/ip-check/",
+    "image": "https://dostup-world.github.io/images/og-safenet.jpg",
+    "totalTime": "PT10M",
+    "step": [
+      {"@type": "HowToStep", "name": "Проверка IP адреса", "text": "Отключите VPN, проверьте IP. Включите VPN, проверьте снова. IP должен измениться на адрес VPN сервера."},
+      {"@type": "HowToStep", "name": "Проверка DNS утечек", "text": "С включенным VPN откройте dnsleaktest.com и убедитесь, что DNS серверы принадлежат VPN провайдеру."},
+      {"@type": "HowToStep", "name": "Проверка WebRTC утечек", "text": "С включенным VPN откройте browserleaks.com/webrtc и убедитесь, что не отображается ваш реальный IP."},
+      {"@type": "HowToStep", "name": "Устранение утечек", "text": "При обнаружении утечек смените сервер/протокол, настройте DNS, отключите IPv6, используйте расширения для WebRTC."}
+    ],
+    "tool": [
+      {"@type": "HowToTool", "name": "Браузер с интернетом"},
+      {"@type": "HowToTool", "name": "VPN клиент"},
+      {"@type": "HowToTool", "name": "Сервисы проверки (ipleak.net, dnsleaktest.com)"}
+    ]
+  }
+  </script>
+
+  <!-- Schema.org JSON-LD: FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "Как часто нужно проверять VPN на утечки?", "acceptedAnswer": {"@type": "Answer", "text": "Рекомендуется проверять при первом подключении, смене сервера, после обновления ПО или при подозрении на проблемы с безопасностью."}},
+      {"@type": "Question", "name": "Опасны ли DNS утечки?", "acceptedAnswer": {"@type": "Answer", "text": "Да, DNS утечки позволяют провайдеру видеть историю посещений сайтов, даже с включенным VPN. Это серьезно нарушает приватность."}},
+      {"@type": "Question", "name": "Что такое WebRTC утечка?", "acceptedAnswer": {"@type": "Answer", "text": "WebRTC утечка — это уязвимость в браузере, которая может раскрыть ваш реальный IP адрес через специальные запросы, обходя VPN туннель."}},
+      {"@type": "Question", "name": "Что делать при обнаружении утечек?", "acceptedAnswer": {"@type": "Answer", "text": "Смените VPN сервер, проверьте настройки DNS, отключите IPv6, используйте расширения для блокировки WebRTC. При сохранении проблем обратитесь в поддержку."}},
+      {"@type": "Question", "name": "Влияют ли утечки на безопасность?", "acceptedAnswer": {"@type": "Answer", "text": "Утечки могут полностью скомпрометировать анонимность и сделать использование VPN бессмысленным. Регулярная проверка критически важна."}}
+    ]
+  }
+  </script>
+
+  <!-- Schema.org JSON-LD: Breadcrumbs -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://dostup-world.github.io/"},
+      {"@type": "ListItem", "position": 2, "name": "Диагностика", "item": "https://dostup-world.github.io/diagnostics/"},
+      {"@type": "ListItem", "position": 3, "name": "Проверка IP", "item": "https://dostup-world.github.io/diagnostics/ip-check/"}
+    ]
+  }
+  </script>
+</body>
+</html>
+
+

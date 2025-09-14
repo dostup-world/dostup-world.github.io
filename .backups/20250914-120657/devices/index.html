@@ -1,0 +1,388 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>VPN для всех устройств — настройка на Windows, Android, iPhone, Smart TV | SAFENET‑VPN</title>
+  <meta name="description" content="Пошаговые инструкции по настройке VPN на любых устройствах: Windows 10/11, Android, iPhone/iPad, Smart TV, роутер. WireGuard и OpenVPN конфигурации, решение проблем подключения.">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <meta name="robots" content="index,follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="VPN для всех устройств — настройка на Windows, Android, iPhone, Smart TV">
+  <meta property="og:description" content="Полное руководство по настройке VPN на любых устройствах. Пошаговые инструкции, решение проблем, оптимизация скорости.">
+  <meta property="og:url" content="https://dostup-plus.github.io/devices/">
+  <meta property="og:image" content="https://dostup-plus.github.io/images/og-safenet.jpg">
+  <meta property="og:site_name" content="SAFENET-VPN">
+
+    <!-- RSS лента — ДОБАВИТЬ СЮДА -->
+  <link rel="alternate" type="application/rss+xml" title="SAFENET-VPN — Руководства по VPN" href="/rss.xml">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="VPN для всех устройств — настройка на Windows, Android, iPhone, Smart TV">
+  <meta name="twitter:description" content="Инструкции по VPN для Windows, Android, iPhone, Smart TV. WireGuard, OpenVPN, решение проблем.">
+  <meta name="twitter:image" content="https://dostup-plus.github.io/images/og-safenet.jpg">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <style>
+    :root{
+      --bg:#0b1020; --card:#11183a; --text:#e9eefc; --muted:#aab3d9; --accent:#4da3ff; --accent-2:#7de2d1; --ok:#29c773; --warn:#ffb020; --err:#ff5c5c;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1050px;margin:0 auto;padding:20px}
+    .breadcrumbs{font-size:.9rem;color:var(--muted);margin:12px 0}
+    .breadcrumbs a{color:var(--muted)}
+    .hero{background:linear-gradient(135deg,rgba(77,163,255,.15),rgba(125,226,209,.12));border:1px solid rgba(125,226,209,.25);border-radius:16px;padding:28px;margin:16px 0}
+    .hero h1{margin:0 0 10px 0;font-size:2rem}
+    .hero p{margin:0 0 16px 0;color:var(--muted)}
+    .cta-row{display:flex;flex-wrap:wrap;gap:10px}
+    .btn{display:inline-block;background:var(--accent);color:#061229;padding:12px 16px;border-radius:10px;font-weight:700}
+    .btn.secondary{background:transparent;border:1px solid var(--accent);color:var(--text)}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:24px}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px}
+    h2{margin-top:28px}
+    h3{margin-top:20px}
+    .badge{display:inline-block;background:rgba(77,163,255,.15);border:1px solid rgba(77,163,255,.4);color:#cfe5ff;padding:2px 8px;border-radius:999px;font-size:.8rem}
+    .note{border-left:3px solid var(--accent-2);padding-left:12px;color:#cfe5ff}
+    .warn{border-left:3px solid var(--warn);padding-left:12px}
+    .ok{color:var(--ok);font-weight:600}
+    ul.check>li::marker{content:"✔ ";color:var(--ok)}
+    .also ul{columns:2;gap:24px}
+    @media(max-width:680px){.also ul{columns:1}}
+    .muted{color:var(--muted)}
+    .footer-cta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .small{font-size:.9rem}
+    .device-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:20px 0}
+    .device-card{border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:20px;background:rgba(17,24,58,.3);transition:border-color .2s}
+    .device-card:hover{border-color:var(--accent)}
+    .device-card h3{margin:0 0 8px 0;color:var(--accent)}
+    .device-card .desc{color:var(--muted);font-size:.9rem;margin:8px 0 12px 0}
+    .device-card .meta{font-size:.8rem;color:var(--muted);margin:8px 0}
+    .btn-card{display:inline-block;background:var(--accent);color:#061229;padding:8px 14px;border-radius:8px;font-size:.9rem;font-weight:600}
+    .btn-card.secondary{background:transparent;border:1px solid var(--muted);color:var(--muted)}
+    .popular{background:linear-gradient(135deg,rgba(41,199,115,.1),rgba(125,226,209,.08));border-color:var(--ok)}
+    .protocols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+    @media(max-width:640px){.protocols{grid-template-columns:1fr}}
+    .protocol-card{border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;text-align:center}
+    .protocol-card h4{margin:0 0 6px 0;color:var(--accent-2)}
+  </style>
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],
+      k.async=1;k.src=r;a.parentNode.insertBefore(k,a)
+    })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(103602117, "init", {clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/103602117" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+  <!-- /Yandex.Metrika -->
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104025851', 'ym');
+
+    ym(104025851, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/104025851" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+<link rel="canonical" href="https://dostup-plus.github.io/devices/">
+</head>
+<body>
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <a href="/">Главная</a> › <span>Устройства</span>
+    </nav>
+
+    <section class="hero">
+      <span class="badge">Все платформы</span>
+      <h1>VPN для всех устройств — настройка на Windows, Android, iPhone, Smart TV</h1>
+      <p>Пошаговые инструкции по настройке VPN на любых устройствах и операционных системах. WireGuard и OpenVPN конфигурации, решение проблем подключения, оптимизация скорости для стриминга и работы.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://t.me/SafeNetVpn_bot?start=afrrica" onclick="ym(103602117,'reachGoal','devices_main_cta')" rel="noopener nofollow">Подобрать конфиг под ваше устройство</a>
+        <a class="btn secondary" href="#devices-list" onclick="ym(103602117,'reachGoal','devices_browse_start')">Выбрать устройство</a>
+      </div>
+      <p class="muted small">SAFENET‑VPN: 126₽/мес (первый месяц 107₽) • Поддержка всех устройств • Помощь с настройкой 24/7</p>
+    </section>
+
+    <div class="grid">
+      <main>
+        <section class="card">
+          <h2>Поддерживаемые протоколы</h2>
+          <p>SAFENET‑VPN поддерживает современные протоколы, обеспечивающие оптимальный баланс скорости, безопасности и совместимости с различными устройствами.</p>
+          <div class="protocols">
+            <div class="protocol-card">
+              <h4>🚀 WireGuard</h4>
+              <p class="small">Современный протокол с максимальной скоростью и низким энергопотреблением. Идеален для мобильных устройств и 4K стриминга.</p>
+              <div class="ok small">Рекомендуется</div>
+            </div>
+            <div class="protocol-card">
+              <h4>🔒 OpenVPN</h4>
+              <p class="small">Проверенный временем протокол с отличной совместимостью. TCP 443 обходит большинство блокировок и фильтров.</p>
+              <div class="muted small">Универсальный</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="devices-list" class="card">
+          <h2>Выберите ваше устройство</h2>
+          <div class="device-cards">
+            <div class="device-card popular">
+              <h3>📱 Android</h3>
+              <div class="desc">Смартфоны и планшеты на Android. Приложения из Google Play, импорт конфигураций, автоподключение.</div>
+              <div class="meta">✓ WireGuard ✓ OpenVPN ✓ Автостарт ✓ Kill Switch</div>
+              <a href="/devices/android/" class="btn-card" onclick="ym(103602117,'reachGoal','devices_card_android')">Настроить Android</a>
+            </div>
+
+            <div class="device-card popular">
+              <h3>🪟 Windows 10/11</h3>
+              <div class="desc">Компьютеры и ноутбуки на Windows. WireGuard, OpenVPN клиенты, встроенный VPN, автозапуск.</div>
+              <div class="meta">✓ WireGuard ✓ OpenVPN ✓ Встроенный клиент ✓ Kill Switch</div>
+              <a href="/devices/windows/" class="btn-card" onclick="ym(103602117,'reachGoal','devices_card_windows')">Настроить Windows</a>
+            </div>
+
+            <div class="device-card">
+              <h3>📱 iPhone / iPad</h3>
+              <div class="desc">iOS устройства. Приложения из App Store, интеграция с системой, Siri Shortcuts.</div>
+              <div class="meta">✓ WireGuard ✓ OpenVPN ✓ On Demand ✓ Shortcuts</div>
+              <a href="/devices/ios/" class="btn-card" onclick="ym(103602117,'reachGoal','devices_card_ios')">Настроить iPhone</a>
+            </div>
+
+            <div class="device-card">
+              <h3>📺 Smart TV</h3>
+              <div class="desc">Samsung, LG, Android TV, Apple TV. Настройка через роутер, Android TV приложения, раздача с ПК.</div>
+              <div class="meta">✓ Роутер ✓ Android TV ✓ Раздача ✓ 4K стриминг</div>
+              <a href="/devices/smart-tv/" class="btn-card" onclick="ym(103602117,'reachGoal','devices_card_smarttv')">Настроить Smart TV</a>
+            </div>
+          </div>
+
+          <div class="note">
+            <strong>Планируется:</strong> macOS, Linux, роутеры (OpenWrt/Keenetic/AsusWRT), игровые консоли. Напишите в <a href="https://t.me/SafeNetVpn_bot?start=afrrica" onclick="ym(103602117,'reachGoal','devices_request_other')">бот</a> — поможем с настройкой любого устройства.
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Популярные сценарии использования</h2>
+          <ul class="check">
+            <li><strong>Домашняя сеть:</strong> настройте VPN на роутере — все устройства будут защищены автоматически</li>
+            <li><strong>Мобильная работа:</strong> VPN на ноутбуке и смартфоне для безопасности в общественных Wi-Fi</li>
+            <li><strong>Стриминг:</strong> VPN на Smart TV или компьютере для доступа к <a href="/streaming/netflix/">Netflix</a>, <a href="/streaming/youtube/">YouTube</a>, спортивным трансляциям</li>
+            <li><strong>Комплексная защита:</strong> один аккаунт SAFENET‑VPN на всех ваших устройствах одновременно</li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <h2>Пошаговый алгоритм настройки</h2>
+          <ol>
+            <li><strong>Выберите устройство</strong> из списка выше и перейдите к детальной инструкции</li>
+            <li><strong>Получите конфигурацию</strong> в <a href="https://t.me/SafeNetVpn_bot?start=afrrica" onclick="ym(103602117,'reachGoal','devices_step_config')">Telegram-боте SAFENET-VPN</a></li>
+            <li><strong>Установите клиент</strong> (WireGuard или OpenVPN) согласно инструкции для вашей платформы</li>
+            <li><strong>Импортируйте профиль</strong> и активируйте подключение</li>
+            <li><strong>Проверьте работу</strong> — используйте <a href="/diagnostics/ip-check/">проверку IP и утечек</a></li>
+          </ol>
+          <p>При возникновении проблем используйте раздел <a href="/troubleshooting/not-working/">устранения неполадок</a> или обратитесь в техподдержку.</p>
+        </section>
+
+        <section class="card">
+          <h2>Частые вопросы по устройствам</h2>
+          
+          <h3>На скольких устройствах можно использовать один аккаунт?</h3>
+          <p>SAFENET‑VPN поддерживает одновременное подключение нескольких устройств. Точное количество зависит от тарифного плана — уточните в боте при регистрации.</p>
+
+          <h3>Какое устройство настроить в первую очередь?</h3>
+          <p>Если у вас есть роутер с поддержкой VPN — начните с него. Это защитит всю домашнюю сеть сразу. Иначе начните с основного устройства (ПК или смартфон).</p>
+
+          <h3>Будет ли VPN работать одинаково на всех устройствах?</h3>
+          <p>Функциональность может различаться: мобильные устройства поддерживают автоподключение по Wi-Fi, ПК — более гибкие настройки маршрутизации, Smart TV работают через роутер или раздачу.</p>
+
+          <h3>Нужно ли устанавливать VPN на каждое устройство отдельно?</h3>
+          <p>Не обязательно. Настройка VPN на роутере защитит все подключенные устройства. Но индивидуальная настройка дает больше контроля и функций.</p>
+
+          <h3>Какой протокол выбрать для старых устройств?</h3>
+          <p>Для устройств старше 5 лет рекомендуем OpenVPN — он имеет лучшую совместимость с устаревшими системами. WireGuard требует более современные ОС.</p>
+        </section>
+
+        <section class="card also">
+          <h2>Полезные материалы</h2>
+          <ul>
+            <li><a href="/guide/vpn-fundamentals/">Что такое VPN простыми словами</a></li>
+            <li><a href="/guide/selection-criteria/">Как выбрать надежный VPN</a></li>
+            <li><a href="/streaming/netflix/">VPN для Netflix</a></li>
+            <li><a href="/streaming/youtube/">VPN для YouTube</a></li>
+            <li><a href="/troubleshooting/not-working/">Решение проблем с VPN</a></li>
+            <li><a href="/diagnostics/ip-check/">Проверка IP адреса и утечек</a></li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <div class="footer-cta">
+            <div>
+              <h3>Настройте VPN на всех устройствах: SAFENET‑VPN</h3>
+              <p class="muted">Поддержка всех платформ, помощь с настройкой 24/7, от 126₽/мес (первый месяц 107₽).</p>
+            </div>
+            <a class="btn" href="https://t.me/SafeNetVpn_bot?start=afrrica" onclick="ym(103602117,'reachGoal','devices_footer_cta')" rel="noopener nofollow">Начать в Telegram</a>
+          </div>
+        </section>
+      </main>
+
+      <aside>
+        <div class="card">
+          <h3>🔥 Популярные устройства</h3>
+          <ul class="small">
+            <li><a href="/devices/android/" onclick="ym(103602117,'reachGoal','devices_sidebar_android')"><strong>Android</strong> — смартфоны, планшеты</a></li>
+            <li><a href="/devices/windows/" onclick="ym(103602117,'reachGoal','devices_sidebar_windows')"><strong>Windows</strong> — ПК, ноутбуки</a></li>
+            <li><a href="/devices/ios/" onclick="ym(103602117,'reachGoal','devices_sidebar_ios')"><strong>iPhone</strong> — iOS устройства</a></li>
+            <li><a href="/devices/smart-tv/" onclick="ym(103602117,'reachGoal','devices_sidebar_smarttv')"><strong>Smart TV</strong> — Samsung, LG, Android TV</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Нужна индивидуальная помощь?</h3>
+          <p class="small muted">Поможем выбрать оптимальный способ настройки под ваши устройства и задачи.</p>
+          <a class="btn" href="https://t.me/SafeNetVpn_bot?start=afrrica" onclick="ym(103602117,'reachGoal','devices_sidebar_help')" rel="noopener nofollow">Получить консультацию</a>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="muted small" style="margin:24px 0;">
+      © SAFENET‑VPN. Поддержка всех современных устройств и операционных систем.
+    </footer>
+  </div>
+
+  <!-- Schema.org JSON-LD: CollectionPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "VPN для всех устройств — настройка на Windows, Android, iPhone, Smart TV",
+    "description": "Пошаговые инструкции по настройке VPN на любых устройствах и операционных системах. WireGuard и OpenVPN конфигурации, решение проблем подключения.",
+    "mainEntity": {
+      "@type": "ItemList",
+      "numberOfItems": 4,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "HowTo",
+            "name": "VPN для Android",
+            "url": "https://dostup-plus.github.io/devices/android/",
+            "description": "Настройка VPN на смартфонах и планшетах Android"
+          }
+        },
+        {
+          "@type": "ListItem", 
+          "position": 2,
+          "item": {
+            "@type": "HowTo",
+            "name": "VPN для Windows",
+            "url": "https://dostup-plus.github.io/devices/windows/",
+            "description": "Настройка VPN на компьютерах Windows 10/11"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3, 
+          "item": {
+            "@type": "HowTo",
+            "name": "VPN для iPhone",
+            "url": "https://dostup-plus.github.io/devices/ios/",
+            "description": "Настройка VPN на iPhone и iPad"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "HowTo", 
+            "name": "VPN для Smart TV",
+            "url": "https://dostup-plus.github.io/devices/smart-tv/",
+            "description": "Настройка VPN на Smart TV Samsung, LG, Android TV"
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- Schema.org JSON-LD: FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "На скольких устройствах можно использовать один аккаунт?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SAFENET‑VPN поддерживает одновременное подключение нескольких устройств. Точное количество зависит от тарифного плана."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Какое устройство настроить в первую очередь?",
+        "acceptedAnswer": {
+          "@type": "Answer", 
+          "text": "Если у вас есть роутер с поддержкой VPN — начните с него. Это защитит всю домашнюю сеть сразу. Иначе начните с основного устройства."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Нужно ли устанавливать VPN на каждое устройство отдельно?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Не обязательно. Настройка VPN на роутере защитит все подключенные устройства. Но индивидуальная настройка дает больше контроля."
+        }
+      },
+      {
+        "@type": "Question", 
+        "name": "Какой протокол выбрать для старых устройств?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Для устройств старше 5 лет рекомендуем OpenVPN — он имеет лучшую совместимость. WireGuard требует более современные ОС."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Schema.org JSON-LD: Breadcrumbs -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Главная",
+        "item": "https://dostup-plus.github.io/"
+      },
+      {
+        "@type": "ListItem", 
+        "position": 2,
+        "name": "Устройства",
+        "item": "https://dostup-plus.github.io/devices/"
+      }
+    ]
+  }
+  </script>
+</body>
+</html>
+

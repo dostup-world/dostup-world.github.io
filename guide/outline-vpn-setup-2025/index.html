@@ -1,0 +1,1641 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outline VPN 2025: создание собственного VPN-сервера за 10 минут</title>
+    <meta name="description" content="Подробное руководство по настройке Outline VPN в России 2025. Пошаговая инструкция Outline Manager, создание Shadowsocks сервера, настройка на всех устройствах.">
+    <meta name="keywords" content="outline vpn настройка, outline manager инструкция, shadowsocks outline, как создать outline vpn, outline vpn россия 2025">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        .card-dark {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #10b981;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .code-block {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .step-number {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .comparison-table {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .comparison-table th {
+            background: rgba(16, 185, 129, 0.2);
+            padding: 12px;
+            border-bottom: 1px solid rgba(52, 211, 153, 0.3);
+        }
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+        }
+        .device-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .device-card:hover {
+            border-color: rgba(52, 211, 153, 0.5);
+            transform: translateY(-2px);
+        }
+        .speed-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #ef4444 0%, #f59e0b 50%, #10b981 100%);
+        }
+    </style>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=103602117', 'ym');
+
+    ym(103602117, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/103602117" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+
+<link rel="canonical" href="https://dostup-world.github.io/guide/outline-vpn-setup-2025/">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-slate-900/90 backdrop-blur-md border-b border-emerald-500/20 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="https://dostup-world.github.io/" class="text-2xl font-bold text-gradient">
+                        <i class="fas fa-shield-alt mr-2"></i>Internet Security Hub
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="https://dostup-world.github.io/guide/" class="nav-link text-emerald-400 font-medium">Руководства</a>
+                    <a href="https://dostup-world.github.io/devices/" class="nav-link text-gray-300 hover:text-emerald-400">Устройства</a>
+                    <a href="https://dostup-world.github.io/streaming/" class="nav-link text-gray-300 hover:text-emerald-400">Стриминг</a>
+                    <a href="https://dostup-world.github.io/troubleshooting/" class="nav-link text-gray-300 hover:text-emerald-400">Решение проблем</a>
+                </div>
+                <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="btn-primary px-4 py-2 rounded-lg text-white font-semibold">
+                    <i class="fab fa-telegram mr-2"></i>Подключить VPN
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <nav class="text-sm">
+            <ol class="flex space-x-2 text-gray-400">
+                <li><a href="https://dostup-world.github.io/" class="hover:text-emerald-400">Главная</a></li>
+                <li><i class="fas fa-chevron-right mx-2"></i></li>
+                <li><a href="https://dostup-world.github.io/guide/" class="hover:text-emerald-400">Руководства</a></li>
+                <li><i class="fas fa-chevron-right mx-2"></i></li>
+                <li class="text-emerald-400">Outline VPN</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                Outline VPN 2025: <span class="text-gradient">собственный VPN-сервер</span> за 10 минут
+            </h1>
+            <p class="text-xl text-gray-300 max-w-4xl mx-auto mb-8">
+                Создайте персональный VPN на базе Shadowsocks с помощью Outline Manager от Google. Полный контроль, отличная скорость, обход любых блокировок в России.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="btn-primary px-8 py-4 rounded-xl text-white font-bold text-lg inline-flex items-center">
+                    <i class="fab fa-telegram mr-3"></i>Получить готовый VPN за 3 минуты
+                </a>
+                <div class="text-center text-sm text-gray-400">
+                    <div class="font-semibold text-emerald-400">126₽/мес</div>
+                    <div>Или настройте Outline сами</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            <div class="card-dark rounded-xl p-6 text-center">
+                <div class="text-3xl font-bold text-emerald-400 mb-2">10 мин</div>
+                <div class="text-gray-300">время настройки</div>
+            </div>
+            <div class="card-dark rounded-xl p-6 text-center">
+                <div class="text-3xl font-bold text-blue-400 mb-2">Google</div>
+                <div class="text-gray-300">разработчик Outline</div>
+            </div>
+            <div class="card-dark rounded-xl p-6 text-center">
+                <div class="text-3xl font-bold text-purple-400 mb-2">Shadowsocks</div>
+                <div class="text-gray-300">протокол обхода</div>
+            </div>
+            <div class="card-dark rounded-xl p-6 text-center">
+                <div class="text-3xl font-bold text-yellow-400 mb-2">$3-5</div>
+                <div class="text-gray-300">стоимость VPS/мес</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Quick Solution Box -->
+        <div class="hero-gradient rounded-2xl p-8 mb-12 text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">
+                <i class="fas fa-rocket mr-3"></i>Быстрое решение: готовый VPN
+            </h2>
+            <p class="text-white/90 text-lg mb-6 max-w-3xl mx-auto">
+                Не хотите возиться с настройкой Outline? SAFENET-VPN уже настроен и оптимизирован для России. 
+                Те же принципы, что и в Outline, но без технических сложностей.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="bg-white text-emerald-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors inline-flex items-center">
+                    <i class="fas fa-play mr-3"></i>Получить готовый VPN сейчас
+                </a>
+                <div class="text-white/80 text-sm">
+                    ✅ Настроен за 3 минуты • ✅ Техподдержка 24/7 • ✅ Все устройства
+                </div>
+            </div>
+        </div>
+
+        <!-- What is Outline VPN -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 text-center">
+                <i class="fas fa-info-circle mr-3 text-emerald-400"></i>Что такое Outline VPN
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="card-dark rounded-xl p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-emerald-400">
+                        <i class="fab fa-google mr-2"></i>Проект от Google
+                    </h3>
+                    <p class="text-gray-300 mb-4">
+                        Outline VPN — это открытый проект компании Google, разработанный специально для журналистов 
+                        и активистов в странах с цензурой. Использует протокол Shadowsocks для обхода блокировок.
+                    </p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-emerald-400 mr-3"></i>
+                            <span>Открытый исходный код</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-emerald-400 mr-3"></i>
+                            <span>Разработан специально против цензуры</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-emerald-400 mr-3"></i>
+                            <span>Поддерживается Google</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-emerald-400 mr-3"></i>
+                            <span>Простота настройки и использования</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-dark rounded-xl p-8">
+                    <h3 class="text-2xl font-bold mb-4">
+                        <i class="fas fa-cogs mr-2"></i>Как это работает
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="step-number mr-4">1</div>
+                            <div>
+                                <h4 class="font-semibold">Outline Manager</h4>
+                                <p class="text-sm text-gray-400">Устанавливает сервер на ваш VPS</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="step-number mr-4">2</div>
+                            <div>
+                                <h4 class="font-semibold">Shadowsocks Server</h4>
+                                <p class="text-sm text-gray-400">Создается VPN-сервер с протоколом обхода блокировок</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="step-number mr-4">3</div>
+                            <div>
+                                <h4 class="font-semibold">Ключи доступа</h4>
+                                <p class="text-sm text-gray-400">Генерируются уникальные ключи для подключения устройств</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="step-number mr-4">4</div>
+                            <div>
+                                <h4 class="font-semibold">Outline Client</h4>
+                                <p class="text-sm text-gray-400">Приложения на всех устройствах подключаются к серверу</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advantages vs Disadvantages -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card-dark rounded-xl p-6">
+                    <h3 class="text-xl font-bold mb-4 text-emerald-400">
+                        <i class="fas fa-thumbs-up mr-2"></i>Преимущества Outline VPN
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-plus-circle text-emerald-400 mr-3 mt-1"></i>
+                            <div>
+                                <strong>Полная приватность:</strong> только вы контролируете сервер
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-plus-circle text-emerald-400 mr-3 mt-1"></i>
+                            <div>
+                                <strong>Отличный обход блокировок:</strong> Shadowsocks эффективен против DPI
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-plus-circle text-emerald-400 mr-3 mt-1"></i>
+                            <div>
+                                <strong>Экономия:</strong> $3-5/мес за VPS вместо $10+ за VPN
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-plus-circle text-emerald-400 mr-3 mt-1"></i>
+                            <div>
+                                <strong>Простота настройки:</strong> графический интерфейс Outline Manager
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-plus-circle text-emerald-400 mr-3 mt-1"></i>
+                            <div>
+                                <strong>Множественные ключи:</strong> можно создать доступы для семьи/друзей
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-dark rounded-xl p-6">
+                    <h3 class="text-xl font-bold mb-4 text-red-400">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>Недостатки и ограничения
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-minus-circle text-red-400 mr-3 mt-1"></i>
+                            <div>
+                                <strong>Требует технических навыков:</strong> аренда VPS, настройка
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-minus-circle text-red-400 mr-3 mt-1"></i>
+                            <div>
+                                <strong>Один сервер:</strong> нет сети серверов в разных странах
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-minus-circle text-red-400 mr-3 mt-1"></i>
+                            <div>
+                                <strong>Нет техподдержки:</strong> при проблемах помогает только сообщество
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-minus-circle text-red-400 mr-3 mt-1"></i>
+                            <div>
+                                <strong>Время настройки:</strong> 10-20 минут вместо мгновенной регистрации
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-minus-circle text-red-400 mr-3 mt-1"></i>
+                            <div>
+                                <strong>Ответственность:</strong> администрирование и безопасность на вас
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step-by-step Guide -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 text-center">
+                <i class="fas fa-list-ol mr-3 text-emerald-400"></i>Пошаговая настройка Outline VPN
+            </h2>
+
+            <!-- Step 1: VPS Setup -->
+            <div class="card-dark rounded-xl p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="step-number mr-4">1</div>
+                    <h3 class="text-2xl font-bold">Аренда VPS-сервера</h3>
+                </div>
+
+                <p class="text-gray-300 mb-6">
+                    Outline VPN работает на любом Linux VPS. Выберите надежного провайдера с серверами в нужной стране.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                    <!-- DigitalOcean -->
+                    <div class="bg-slate-800/50 rounded-lg p-4">
+                        <h4 class="font-bold mb-2 text-blue-400">DigitalOcean</h4>
+                        <div class="text-sm space-y-1">
+                            <div class="flex justify-between">
+                                <span>Цена:</span>
+                                <span class="text-emerald-400">$4/мес</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Локации:</span>
+                                <span>Европа, США, Азия</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Рейтинг:</span>
+                                <span class="text-yellow-400">★★★★★</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vultr -->
+                    <div class="bg-slate-800/50 rounded-lg p-4">
+                        <h4 class="font-bold mb-2 text-purple-400">Vultr</h4>
+                        <div class="text-sm space-y-1">
+                            <div class="flex justify-between">
+                                <span>Цена:</span>
+                                <span class="text-emerald-400">$2.50/мес</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Локации:</span>
+                                <span>25 городов мира</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Рейтинг:</span>
+                                <span class="text-yellow-400">★★★★☆</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Linode -->
+                    <div class="bg-slate-800/50 rounded-lg p-4">
+                        <h4 class="font-bold mb-2 text-green-400">Linode</h4>
+                        <div class="text-sm space-y-1">
+                            <div class="flex justify-between">
+                                <span>Цена:</span>
+                                <span class="text-emerald-400">$5/мес</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Локации:</span>
+                                <span>11 регионов</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Рейтинг:</span>
+                                <span class="text-yellow-400">★★★★★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-emerald-900/20 rounded-lg p-4 border border-emerald-500/30">
+                    <h4 class="font-bold mb-2 text-emerald-400">
+                        <i class="fas fa-lightbulb mr-2"></i>Рекомендации по выбору VPS
+                    </h4>
+                    <ul class="text-sm space-y-1">
+                        <li><strong>Минимальные требования:</strong> 1 GB RAM, 1 CPU, 25 GB SSD</li>
+                        <li><strong>ОС:</strong> Ubuntu 20.04/22.04 или Debian 11/12</li>
+                        <li><strong>Локация:</strong> Нидерланды/Германия для России (низкий пинг)</li>
+                        <li><strong>Платежи:</strong> Выбирайте провайдеров, принимающих ваши карты</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 2: Download Outline Manager -->
+            <div class="card-dark rounded-xl p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="step-number mr-4">2</div>
+                    <h3 class="text-2xl font-bold">Установка Outline Manager</h3>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Скачивание Outline Manager</h4>
+                        <p class="text-gray-300 mb-4">
+                            Outline Manager — это программа для настройки VPN-сервера. Скачивается с официального сайта Google.
+                        </p>
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-center">
+                                <i class="fab fa-windows text-blue-400 mr-3"></i>
+                                <div>
+                                    <strong>Windows:</strong> Outline-Manager.exe
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fab fa-apple text-gray-400 mr-3"></i>
+                                <div>
+                                    <strong>macOS:</strong> Outline-Manager.dmg
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fab fa-linux text-yellow-400 mr-3"></i>
+                                <div>
+                                    <strong>Linux:</strong> Outline-Manager.AppImage
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-blue-900/20 rounded-lg p-4 border border-blue-500/30">
+                            <div class="font-semibold mb-2">
+                                <i class="fas fa-download mr-2"></i>Официальная ссылка для скачивания:
+                            </div>
+                            <div class="code-block">
+                                https://getoutline.org/get-started/#step-1
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Установка и запуск</h4>
+                        <ol class="space-y-3 text-sm">
+                            <li class="flex items-start">
+                                <span class="bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-1">1</span>
+                                <div>Скачайте Outline Manager для вашей операционной системы</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-1">2</span>
+                                <div>Установите программу стандартным способом</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-1">3</span>
+                                <div>Запустите Outline Manager</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-1">4</span>
+                                <div>При первом запуске программа предложит создать сервер</div>
+                            </li>
+                        </ol>
+
+                        <div class="mt-4 p-4 bg-yellow-900/20 rounded-lg border border-yellow-500/30">
+                            <div class="font-semibold mb-2 text-yellow-400">
+                                <i class="fas fa-exclamation-triangle mr-2"></i>Важно для Windows
+                            </div>
+                            <p class="text-sm">
+                                Если Windows Defender блокирует установку, добавьте Outline Manager в исключения. 
+                                Это официальная программа Google, она безопасна.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Server Creation -->
+            <div class="card-dark rounded-xl p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="step-number mr-4">3</div>
+                    <h3 class="text-2xl font-bold">Создание VPN-сервера</h3>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Подключение к VPS</h4>
+                        <p class="text-gray-300 mb-4">
+                            Outline Manager подключится к вашему VPS и автоматически установит Shadowsocks сервер.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-1">IP-адрес сервера:</label>
+                                <div class="code-block">
+                                    Пример: 192.168.1.100
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-1">SSH-ключ или пароль root:</label>
+                                <div class="code-block text-xs">
+                                    # SSH-ключ (рекомендуется)
+                                    -----BEGIN PRIVATE KEY-----
+                                    MIIEvQIBADANBgkqhkiG9w0...
+                                    -----END PRIVATE KEY-----
+                                    
+                                    # Или пароль root
+                                    password: ваш_пароль_от_VPS
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 p-4 bg-red-900/20 rounded-lg border border-red-500/30">
+                            <div class="font-semibold mb-2 text-red-400">
+                                <i class="fas fa-shield-alt mr-2"></i>Безопасность
+                            </div>
+                            <p class="text-sm">
+                                Используйте SSH-ключи вместо паролей. Отключите парольную аутентификацию после настройки. 
+                                Никому не передавайте данные доступа к серверу.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Процесс установки</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-check text-white"></i>
+                                </div>
+                                <div>
+                                    <div class="font-medium">Подключение к серверу</div>
+                                    <div class="text-sm text-gray-400">Outline Manager подключается через SSH</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-check text-white"></i>
+                                </div>
+                                <div>
+                                    <div class="font-medium">Обновление системы</div>
+                                    <div class="text-sm text-gray-400">Автоматическая установка обновлений</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-check text-white"></i>
+                                </div>
+                                <div>
+                                    <div class="font-medium">Установка Docker</div>
+                                    <div class="text-sm text-gray-400">Shadowsocks работает в контейнере</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-check text-white"></i>
+                                </div>
+                                <div>
+                                    <div class="font-medium">Настройка Shadowsocks</div>
+                                    <div class="text-sm text-gray-400">Создание VPN-сервера</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-key text-white"></i>
+                                </div>
+                                <div>
+                                    <div class="font-medium">Генерация ключей</div>
+                                    <div class="text-sm text-gray-400">Создание доступов для устройств</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-emerald-900/20 rounded-lg border border-emerald-500/30">
+                            <div class="font-semibold mb-2 text-emerald-400">
+                                <i class="fas fa-clock mr-2"></i>Время установки
+                            </div>
+                            <p class="text-sm">
+                                Весь процесс занимает 5-10 минут в зависимости от скорости интернета и мощности VPS. 
+                                Outline Manager покажет прогресс установки.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Key Generation -->
+            <div class="card-dark rounded-xl p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="step-number mr-4">4</div>
+                    <h3 class="text-2xl font-bold">Создание ключей доступа</h3>
+                </div>
+
+                <p class="text-gray-300 mb-6">
+                    После установки сервера Outline Manager позволяет создавать ключи доступа для разных устройств и пользователей.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Создание нового ключа</h4>
+                        <ol class="space-y-3 text-sm mb-6">
+                            <li class="flex items-start">
+                                <span class="bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-1">1</span>
+                                <div>В Outline Manager нажмите кнопку <strong>"Добавить новый ключ"</strong></div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-1">2</span>
+                                <div>Дайте ключу понятное название (например: "Мой iPhone", "Ноутбук жены")</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-1">3</span>
+                                <div>Установите лимит трафика при необходимости</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-1">4</span>
+                                <div>Скопируйте ключ доступа или сгенерируйте QR-код</div>
+                            </li>
+                        </ol>
+
+                        <div class="bg-blue-900/20 rounded-lg p-4 border border-blue-500/30">
+                            <h5 class="font-semibold mb-2">Пример ключа доступа:</h5>
+                            <div class="code-block text-xs">
+                                ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpwYXNzd29yZA@192.168.1.100:8080/?outline=1
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2">
+                                Это уникальная ссылка для подключения к вашему VPN-серверу
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Управление ключами</h4>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-slate-800/50 rounded-lg p-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <strong>iPhone Анны</strong>
+                                    <span class="text-emerald-400 text-sm">Активный</span>
+                                </div>
+                                <div class="text-sm text-gray-400">Трафик: 2.1 GB / 10 GB</div>
+                                <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                    <div class="bg-emerald-400 h-2 rounded-full" style="width: 21%"></div>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-800/50 rounded-lg p-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <strong>Ноутбук работа</strong>
+                                    <span class="text-gray-400 text-sm">Неактивный</span>
+                                </div>
+                                <div class="text-sm text-gray-400">Трафик: 847 MB / Безлимит</div>
+                                <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                    <div class="bg-yellow-400 h-2 rounded-full" style="width: 8%"></div>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-800/50 rounded-lg p-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <strong>Smart TV гостиная</strong>
+                                    <span class="text-emerald-400 text-sm">Активный</span>
+                                </div>
+                                <div class="text-sm text-gray-400">Трафик: 15.3 GB / Безлимит</div>
+                                <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                    <div class="bg-emerald-400 h-2 rounded-full" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 text-sm text-gray-400">
+                            <strong>Возможности управления:</strong>
+                            <ul class="mt-2 space-y-1">
+                                <li>• Переименование ключей</li>
+                                <li>• Установка лимитов трафика</li>
+                                <li>• Временная приостановка доступа</li>
+                                <li>• Полное удаление ключа</li>
+                                <li>• Статистика использования</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Client Setup -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 text-center">
+                <i class="fas fa-mobile-alt mr-3 text-emerald-400"></i>Настройка Outline Client на устройствах
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Android -->
+                <div class="device-card">
+                    <div class="flex items-center mb-4">
+                        <i class="fab fa-android text-green-400 text-2xl mr-3"></i>
+                        <h3 class="text-xl font-bold">Android</h3>
+                    </div>
+                    <ol class="space-y-2 text-sm mb-4">
+                        <li>1. Скачайте "Outline" из Google Play</li>
+                        <li>2. Откройте приложение</li>
+                        <li>3. Нажмите "Добавить сервер"</li>
+                        <li>4. Отсканируйте QR-код или вставьте ключ</li>
+                        <li>5. Нажмите "Подключиться"</li>
+                    </ol>
+                    <div class="text-xs text-gray-400">
+                        <strong>Особенности:</strong> Always-On VPN, автоподключение к ненадежным Wi-Fi
+                    </div>
+                </div>
+
+                <!-- iPhone -->
+                <div class="device-card">
+                    <div class="flex items-center mb-4">
+                        <i class="fab fa-apple text-gray-400 text-2xl mr-3"></i>
+                        <h3 class="text-xl font-bold">iPhone / iPad</h3>
+                    </div>
+                    <ol class="space-y-2 text-sm mb-4">
+                        <li>1. Скачайте "Outline" из App Store</li>
+                        <li>2. Откройте приложение</li>
+                        <li>3. Нажмите "Add Server"</li>
+                        <li>4. Сканируйте QR-код камерой</li>
+                        <li>5. Разрешите установку VPN-профиля</li>
+                        <li>6. Введите пароль устройства</li>
+                    </ol>
+                    <div class="text-xs text-gray-400">
+                        <strong>Особенности:</strong> On Demand подключение, Siri Shortcuts
+                    </div>
+                </div>
+
+                <!-- Windows -->
+                <div class="device-card">
+                    <div class="flex items-center mb-4">
+                        <i class="fab fa-windows text-blue-400 text-2xl mr-3"></i>
+                        <h3 class="text-xl font-bold">Windows</h3>
+                    </div>
+                    <ol class="space-y-2 text-sm mb-4">
+                        <li>1. Скачайте Outline Client с getoutline.org</li>
+                        <li>2. Установите и запустите программу</li>
+                        <li>3. Нажмите "Add Server"</li>
+                        <li>4. Вставьте ключ доступа</li>
+                        <li>5. Нажмите "Connect"</li>
+                    </ol>
+                    <div class="text-xs text-gray-400">
+                        <strong>Особенности:</strong> Автозапуск с Windows, системный трей
+                    </div>
+                </div>
+
+                <!-- macOS -->
+                <div class="device-card">
+                    <div class="flex items-center mb-4">
+                        <i class="fab fa-apple text-gray-400 text-2xl mr-3"></i>
+                        <h3 class="text-xl font-bold">macOS</h3>
+                    </div>
+                    <ol class="space-y-2 text-sm mb-4">
+                        <li>1. Скачайте Outline.dmg</li>
+                        <li>2. Перетащите в Applications</li>
+                        <li>3. Запустите Outline</li>
+                        <li>4. Добавьте ключ сервера</li>
+                        <li>5. Подтвердите установку VPN</li>
+                    </ol>
+                    <div class="text-xs text-gray-400">
+                        <strong>Особенности:</strong> Интеграция с Keychain, системные уведомления
+                    </div>
+                </div>
+
+                <!-- Linux -->
+                <div class="device-card">
+                    <div class="flex items-center mb-4">
+                        <i class="fab fa-linux text-yellow-400 text-2xl mr-3"></i>
+                        <h3 class="text-xl font-bold">Linux</h3>
+                    </div>
+                    <ol class="space-y-2 text-sm mb-4">
+                        <li>1. Скачайте Outline.AppImage</li>
+                        <li>2. Сделайте файл исполняемым: chmod +x</li>
+                        <li>3. Запустите: ./Outline.AppImage</li>
+                        <li>4. Добавьте ключ сервера</li>
+                        <li>5. Подключитесь к VPN</li>
+                    </ol>
+                    <div class="text-xs text-gray-400">
+                        <strong>Особенности:</strong> Работает на всех дистрибутивах, портативный
+                    </div>
+                </div>
+
+                <!-- Router -->
+                <div class="device-card">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-router text-purple-400 text-2xl mr-3"></i>
+                        <h3 class="text-xl font-bold">Роутер</h3>
+                    </div>
+                    <ol class="space-y-2 text-sm mb-4">
+                        <li>1. Экспортируйте конфиг как Shadowsocks</li>
+                        <li>2. Войдите в админку роутера</li>
+                        <li>3. Найдите раздел VPN/Shadowsocks</li>
+                        <li>4. Введите параметры сервера</li>
+                        <li>5. Активируйте подключение</li>
+                    </ol>
+                    <div class="text-xs text-gray-400">
+                        <strong>Поддержка:</strong> OpenWrt, Keenetic, ASUS, MikroTik
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 p-6 bg-blue-900/20 rounded-xl border border-blue-500/30">
+                <h3 class="text-xl font-bold mb-4 text-blue-400">
+                    <i class="fas fa-download mr-2"></i>Официальные ссылки для скачивания Outline Client
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <strong>Мобильные устройства:</strong>
+                        <ul class="mt-2 space-y-1">
+                            <li>• <strong>Android:</strong> Google Play Store → "Outline"</li>
+                            <li>• <strong>iPhone:</strong> App Store → "Outline"</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>Компьютеры:</strong>
+                        <ul class="mt-2 space-y-1">
+                            <li>• <strong>Все платформы:</strong> getoutline.org/get-started/#step-3</li>
+                            <li>• <strong>GitHub:</strong> github.com/Jigsaw-Code/outline-client</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison with Alternatives -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 text-center">
+                <i class="fas fa-balance-scale mr-3 text-emerald-400"></i>Сравнение Outline VPN с альтернативами
+            </h2>
+
+            <div class="overflow-x-auto mb-8">
+                <table class="comparison-table w-full text-left">
+                    <thead>
+                        <tr>
+                            <th class="text-emerald-400">Решение</th>
+                            <th class="text-center">Сложность настройки</th>
+                            <th class="text-center">Стоимость/мес</th>
+                            <th class="text-center">Приватность</th>
+                            <th class="text-center">Скорость</th>
+                            <th class="text-center">Техподдержка</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-emerald-900/20">
+                            <td class="font-bold text-emerald-400">SAFENET-VPN</td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">⭐</div>
+                                <div class="text-xs">3 минуты</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">126₽</div>
+                                <div class="text-xs">Первый 107₽</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">⭐⭐⭐⭐⭐</div>
+                                <div class="text-xs">Высокая</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">⭐⭐⭐⭐⭐</div>
+                                <div class="text-xs">80+ Мбит/с</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">⭐⭐⭐⭐⭐</div>
+                                <div class="text-xs">24/7 Telegram</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Outline VPN</td>
+                            <td class="text-center">
+                                <div class="text-yellow-400 font-bold">⭐⭐⭐</div>
+                                <div class="text-xs">10-20 мин</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">$3-5</div>
+                                <div class="text-xs">Только VPS</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">⭐⭐⭐⭐⭐</div>
+                                <div class="text-xs">Максимальная</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">⭐⭐⭐⭐</div>
+                                <div class="text-xs">60-90 Мбит/с</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-red-400 font-bold">⭐</div>
+                                <div class="text-xs">Сообщество</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Amnezia VPN</td>
+                            <td class="text-center">
+                                <div class="text-orange-400 font-bold">⭐⭐⭐⭐</div>
+                                <div class="text-xs">15-30 мин</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">$3-5</div>
+                                <div class="text-xs">Только VPS</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">⭐⭐⭐⭐⭐</div>
+                                <div class="text-xs">Максимальная</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">⭐⭐⭐⭐⭐</div>
+                                <div class="text-xs">70-100 Мбит/с</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-red-400 font-bold">⭐</div>
+                                <div class="text-xs">Сообщество</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">NordVPN</td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">⭐</div>
+                                <div class="text-xs">1 минута</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-red-400 font-bold">450-800₽</div>
+                                <div class="text-xs">Дорого</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-yellow-400 font-bold">⭐⭐⭐</div>
+                                <div class="text-xs">Средняя</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-yellow-400 font-bold">⭐⭐⭐</div>
+                                <div class="text-xs">40-70 Мбит/с</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">⭐⭐⭐⭐</div>
+                                <div class="text-xs">Чат/Email</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Бесплатные VPN</td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">⭐</div>
+                                <div class="text-xs">1 минута</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-emerald-400 font-bold">0₽</div>
+                                <div class="text-xs">С ограничениями</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-red-400 font-bold">⭐</div>
+                                <div class="text-xs">Низкая</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-red-400 font-bold">⭐</div>
+                                <div class="text-xs">1-5 Мбит/с</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-red-400 font-bold">⭐</div>
+                                <div class="text-xs">Отсутствует</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="card-dark rounded-xl p-6">
+                    <h3 class="text-lg font-bold mb-3 text-emerald-400">
+                        <i class="fas fa-crown mr-2"></i>Outline VPN подходит если:
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>✅ Цените максимальную приватность</li>
+                        <li>✅ Готовы потратить время на настройку</li>
+                        <li>✅ Имеете базовые технические навыки</li>
+                        <li>✅ Нужен один сервер в определенной стране</li>
+                        <li>✅ Хотите экономить на длинной дистанции</li>
+                        <li>✅ Нужны ключи для семьи/друзей</li>
+                    </ul>
+                </div>
+
+                <div class="card-dark rounded-xl p-6 border-2 border-emerald-500/50">
+                    <h3 class="text-lg font-bold mb-3 text-emerald-400">
+                        <i class="fab fa-telegram mr-2"></i>SAFENET-VPN лучше если:
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>🚀 Нужно "здесь и сейчас"</li>
+                        <li>🛠️ Важна техподдержка 24/7</li>
+                        <li>⚡ Нужна максимальная скорость</li>
+                        <li>🌍 Требуются серверы в разных странах</li>
+                        <li>📱 Хотите простые приложения</li>
+                        <li>💰 Готовы платить за удобство</li>
+                    </ul>
+                    <div class="mt-4">
+                        <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="btn-primary w-full py-3 rounded-lg text-white font-bold text-center block">
+                            Попробовать SAFENET-VPN
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-dark rounded-xl p-6">
+                    <h3 class="text-lg font-bold mb-3 text-yellow-400">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>Коммерческие VPN если:
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>🏢 Нужны корпоративные функции</li>
+                        <li>🌏 Требуются серверы по всему миру</li>
+                        <li>📞 Важна официальная поддержка</li>
+                        <li>🔒 Нужны специальные протоколы</li>
+                        <li>📊 Важна репутация бренда</li>
+                        <li>💳 Бюджет не ограничен</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 text-center">
+                <i class="fas fa-wrench mr-3 text-emerald-400"></i>Решение проблем с Outline VPN
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Installation Issues -->
+                <div>
+                    <h3 class="text-xl font-bold mb-6">🔴 Проблемы установки</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="card-dark rounded-lg p-6">
+                            <h4 class="font-bold mb-3">Outline Manager не подключается к VPS</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><strong>Проверьте SSH:</strong> убедитесь, что можете подключиться через терминал</li>
+                                <li><strong>Проверьте файрвол:</strong> откройте порт 22 для SSH</li>
+                                <li><strong>Правильные credentials:</strong> логин root, правильный пароль/ключ</li>
+                                <li><strong>IP-адрес:</strong> используйте внешний IP, не внутренний</li>
+                            </ul>
+                            <div class="mt-3 code-block text-xs">
+                                # Проверка SSH подключения
+                                ssh root@ваш_ip_адрес
+                                # Если подключается - проблема в Outline Manager
+                            </div>
+                        </div>
+
+                        <div class="card-dark rounded-lg p-6">
+                            <h4 class="font-bold mb-3">Ошибка "Docker not found"</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>Установите Docker вручную на VPS</li>
+                                <li>Убедитесь, что служба Docker запущена</li>
+                                <li>Проверьте права пользователя root</li>
+                            </ul>
+                            <div class="mt-3 code-block text-xs">
+                                # Установка Docker на Ubuntu
+                                curl -fsSL https://get.docker.com -o get-docker.sh
+                                sh get-docker.sh
+                                systemctl start docker
+                            </div>
+                        </div>
+
+                        <div class="card-dark rounded-lg p-6">
+                            <h4 class="font-bold mb-3">Порты заблокированы</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>Откройте порты в файрволе VPS</li>
+                                <li>Проверьте ограничения хостинг-провайдера</li>
+                                <li>Используйте альтернативные порты</li>
+                            </ul>
+                            <div class="mt-3 code-block text-xs">
+                                # Открытие портов в UFW
+                                ufw allow 22/tcp
+                                ufw allow 1024:65535/tcp
+                                ufw --force enable
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connection Issues -->
+                <div>
+                    <h3 class="text-xl font-bold mb-6">⚠️ Проблемы подключения</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="card-dark rounded-lg p-6">
+                            <h4 class="font-bold mb-3">Outline Client не подключается</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><strong>Проверьте ключ:</strong> скопируйте заново из Outline Manager</li>
+                                <li><strong>Проверьте интернет:</strong> попробуйте другую сеть</li>
+                                <li><strong>Перезапустите сервер:</strong> в Outline Manager</li>
+                                <li><strong>Смените порт:</strong> в настройках сервера</li>
+                            </ul>
+                        </div>
+
+                        <div class="card-dark rounded-lg p-6">
+                            <h4 class="font-bold mb-3">Медленная скорость</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>Выберите VPS ближе к вашему местоположению</li>
+                                <li>Увеличьте мощность VPS (больше RAM/CPU)</li>
+                                <li>Проверьте нагрузку на сервер</li>
+                                <li>Используйте проводное подключение</li>
+                            </ul>
+                        </div>
+
+                        <div class="card-dark rounded-lg p-6">
+                            <h4 class="font-bold mb-3">Периодические отключения</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>Проверьте стабильность VPS</li>
+                                <li>Настройте автозапуск Docker контейнера</li>
+                                <li>Увеличьте timeout в настройках клиента</li>
+                                <li>Смените хостинг-провайдера</li>
+                            </ul>
+                            <div class="mt-3 code-block text-xs">
+                                # Автозапуск контейнера
+                                docker update --restart always shadowbox
+                            </div>
+                        </div>
+
+                        <div class="card-dark rounded-lg p-6">
+                            <h4 class="font-bold mb-3">Заблокирован провайдером</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>Смените порт сервера на 443 или 80</li>
+                                <li>Используйте другой VPS в другой стране</li>
+                                <li>Попробуйте другой протокол (Amnezia VPN)</li>
+                                <li>Обратитесь к провайдеру VPS за новым IP</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Solution -->
+            <div class="mt-8 p-6 bg-blue-900/20 rounded-xl border border-blue-500/30">
+                <h3 class="text-xl font-bold mb-4 text-blue-400">
+                    <i class="fas fa-life-ring mr-2"></i>Если ничего не помогает
+                </h3>
+                <p class="text-gray-300 mb-4">
+                    Настройка собственного VPN может быть сложной. Если у вас не получается настроить Outline или 
+                    он перестал работать, используйте готовое решение SAFENET-VPN в качестве временной замены.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 items-center">
+                    <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="btn-primary px-6 py-3 rounded-lg text-white font-bold inline-flex items-center">
+                        <i class="fab fa-telegram mr-2"></i>Получить рабочий VPN сейчас
+                    </a>
+                    <div class="text-sm text-gray-400">
+                        Работает через 3 минуты • Техподдержка поможет с Outline • 126₽/мес
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Tips -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 text-center">
+                <i class="fas fa-shield-alt mr-3 text-emerald-400"></i>Безопасность и лучшие практики
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card-dark rounded-xl p-8">
+                    <h3 class="text-2xl font-bold mb-6 text-emerald-400">
+                        <i class="fas fa-lock mr-2"></i>Защита сервера
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold mb-2">Обязательные меры:</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-key text-emerald-400 mr-3 mt-1"></i>
+                                    <div>
+                                        <strong>SSH-ключи вместо паролей:</strong> создайте пару ключей и отключите парольную аутентификацию
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-fire text-orange-400 mr-3 mt-1"></i>
+                                    <div>
+                                        <strong>Настройка файрвола:</strong> закройте все неиспользуемые порты, оставьте только SSH и VPN
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-sync text-blue-400 mr-3 mt-1"></i>
+                                    <div>
+                                        <strong>Автоматические обновления:</strong> включите автоматическое обновление системы безопасности
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-ban text-red-400 mr-3 mt-1"></i>
+                                    <div>
+                                        <strong>Fail2ban:</strong> защита от брутфорс атак на SSH
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="text-gray-400 mb-2"># Быстрая настройка безопасности</div>
+                            <div># Обновление системы</div>
+                            <div>apt update && apt upgrade -y</div>
+                            <div></div>
+                            <div># Установка fail2ban</div>
+                            <div>apt install fail2ban -y</div>
+                            <div></div>
+                            <div># Настройка UFW</div>
+                            <div>ufw allow 22/tcp</div>
+                            <div>ufw allow 1024:65535/tcp</div>
+                            <div>ufw --force enable</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-dark rounded-xl p-8">
+                    <h3 class="text-2xl font-bold mb-6">
+                        <i class="fas fa-user-shield mr-2"></i>Приватность пользователей
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold mb-2">Рекомендации:</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-eye-slash text-purple-400 mr-3 mt-1"></i>
+                                    <div>
+                                        <strong>Никаких логов:</strong> Outline по умолчанию не ведет логи трафика пользователей
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-key text-yellow-400 mr-3 mt-1"></i>
+                                    <div>
+                                        <strong>Уникальные ключи:</strong> создавайте отдельный ключ для каждого устройства
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-trash text-red-400 mr-3 mt-1"></i>
+                                    <div>
+                                        <strong>Удаление ключей:</strong> удаляйте доступы неиспользуемых устройств
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chart-line text-blue-400 mr-3 mt-1"></i>
+                                    <div>
+                                        <strong>Мониторинг трафика:</strong> следите за необычным использованием данных
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-yellow-900/20 rounded-lg p-4 border border-yellow-500/30">
+                            <h5 class="font-semibold mb-2 text-yellow-400">
+                                <i class="fas fa-exclamation-triangle mr-2"></i>Важно помнить
+                            </h5>
+                            <ul class="text-xs space-y-1">
+                                <li>• Не передавайте ключи доступа третьим лицам</li>
+                                <li>• Регулярно меняйте SSH-ключи сервера</li>
+                                <li>• Не используйте VPS в юрисдикциях с жесткой цензурой</li>
+                                <li>• Делайте резервные копии конфигурации Outline</li>
+                                <li>• Отслеживайте безопасность хостинг-провайдера</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cost Analysis -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 text-center">
+                <i class="fas fa-calculator mr-3 text-emerald-400"></i>Экономический анализ
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Outline VPN Costs -->
+                <div class="card-dark rounded-xl p-6">
+                    <h3 class="text-xl font-bold mb-4 text-emerald-400">
+                        <i class="fas fa-server mr-2"></i>Outline VPN
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span>VPS (DigitalOcean):</span>
+                            <span class="font-bold">$4/мес</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Домен (опционально):</span>
+                            <span class="font-bold">$1/мес</span>
+                        </div>
+                        <hr class="border-gray-600">
+                        <div class="flex justify-between text-lg">
+                            <span><strong>Итого в месяц:</strong></span>
+                            <span class="font-bold text-emerald-400">~$5 (≈375₽)</span>
+                        </div>
+                        <div class="flex justify-between text-lg">
+                            <span><strong>Итого в год:</strong></span>
+                            <span class="font-bold text-emerald-400">~$60 (≈4,500₽)</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-xs text-gray-400">
+                        <strong>Плюсы экономии:</strong>
+                        <ul class="mt-2 space-y-1">
+                            <li>• Один платеж за VPS</li>
+                            <li>• Безлимитные устройства</li>
+                            <li>• Можно поделиться с семьей</li>
+                            <li>• Цена не растет со временем</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SAFENET-VPN -->
+                <div class="card-dark rounded-xl p-6 border-2 border-emerald-500/50">
+                    <h3 class="text-xl font-bold mb-4 text-emerald-400">
+                        <i class="fab fa-telegram mr-2"></i>SAFENET-VPN
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span>Подписка:</span>
+                            <span class="font-bold">126₽/мес</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Первый месяц:</span>
+                            <span class="font-bold text-emerald-400">107₽</span>
+                        </div>
+                        <hr class="border-gray-600">
+                        <div class="flex justify-between text-lg">
+                            <span><strong>Итого в месяц:</strong></span>
+                            <span class="font-bold text-emerald-400">126₽</span>
+                        </div>
+                        <div class="flex justify-between text-lg">
+                            <span><strong>Итого в год:</strong></span>
+                            <span class="font-bold text-emerald-400">1,512₽</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-xs text-gray-400">
+                        <strong>Плюсы готового решения:</strong>
+                        <ul class="mt-2 space-y-1">
+                            <li>• Настройка за 3 минуты</li>
+                            <li>• Техподдержка 24/7</li>
+                            <li>• Серверы в разных странах</li>
+                            <li>• Никаких технических проблем</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="btn-primary w-full py-2 rounded-lg text-white text-sm font-bold text-center block">
+                            Попробовать за 107₽
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Commercial VPN -->
+                <div class="card-dark rounded-xl p-6">
+                    <h3 class="text-xl font-bold mb-4">
+                        <i class="fas fa-building mr-2"></i>Коммерческие VPN
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span>NordVPN:</span>
+                            <span class="font-bold">450₽/мес</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>ExpressVPN:</span>
+                            <span class="font-bold">800₽/мес</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Surfshark:</span>
+                            <span class="font-bold">350₽/мес</span>
+                        </div>
+                        <hr class="border-gray-600">
+                        <div class="flex justify-between text-lg">
+                            <span><strong>Средняя цена:</strong></span>
+                            <span class="font-bold text-red-400">533₽/мес</span>
+                        </div>
+                        <div class="flex justify-between text-lg">
+                            <span><strong>Итого в год:</strong></span>
+                            <span class="font-bold text-red-400">6,400₽</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-xs text-gray-400">
+                        <strong>За что платите больше:</strong>
+                        <ul class="mt-2 space-y-1">
+                            <li>• Бренд и маркетинг</li>
+                            <li>• Офисы и персонал</li>
+                            <li>• Прибыль компании</li>
+                            <li>• Не всегда работает в России</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Savings Calculation -->
+            <div class="mt-8 p-6 bg-emerald-900/20 rounded-xl border border-emerald-500/30">
+                <h3 class="text-2xl font-bold mb-4 text-emerald-400 text-center">
+                    <i class="fas fa-piggy-bank mr-2"></i>Расчет экономии на 2 года
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div>
+                        <div class="text-3xl font-bold mb-2">9,000₽</div>
+                        <div class="text-gray-300">Outline VPN (2 года)</div>
+                        <div class="text-sm text-emerald-400">Включая время на настройку</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold mb-2 text-emerald-400">3,024₽</div>
+                        <div class="text-gray-300">SAFENET-VPN (2 года)</div>
+                        <div class="text-sm text-emerald-400">Готовое решение</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold mb-2 text-red-400">12,800₽</div>
+                        <div class="text-gray-300">Коммерческие VPN (2 года)</div>
+                        <div class="text-sm text-red-400">Переплата в 4 раза</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final CTA -->
+        <div class="text-center py-12">
+            <h2 class="text-4xl font-bold mb-6">
+                Готовы создать <span class="text-gradient">собственный VPN</span>?
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Outline VPN — отличное решение для тех, кто ценит приватность и готов потратить время на настройку. 
+                Если нужно быстрое решение, попробуйте SAFENET-VPN.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
+                <div class="text-center">
+                    <h3 class="text-xl font-bold mb-2">Outline VPN (самостоятельно)</h3>
+                    <p class="text-sm text-gray-400 mb-4">10-20 минут настройки, $5/мес VPS</p>
+                    <a href="https://getoutline.org/get-started/" target="_blank" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl text-white font-bold text-lg inline-flex items-center transition-colors">
+                        <i class="fas fa-external-link-alt mr-3"></i>Скачать Outline Manager
+                    </a>
+                </div>
+                <div class="text-gray-400 text-2xl">или</div>
+                <div class="text-center">
+                    <h3 class="text-xl font-bold mb-2">SAFENET-VPN (готовый)</h3>
+                    <p class="text-sm text-gray-400 mb-4">3 минуты настройки, 126₽/мес</p>
+                    <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="btn-primary px-8 py-4 rounded-xl text-white font-bold text-lg inline-flex items-center">
+                        <i class="fab fa-telegram mr-3"></i>Попробовать готовый VPN
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
+                <div class="flex items-center">
+                    <i class="fas fa-check text-emerald-400 mr-2"></i>
+                    <span>Полная приватность</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check text-emerald-400 mr-2"></i>
+                    <span>Обход любых блокировок</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check text-emerald-400 mr-2"></i>
+                    <span>Экономия в долгосрочной перспективе</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check text-emerald-400 mr-2"></i>
+                    <span>Множественные устройства</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Articles -->
+        <div class="border-t border-gray-700 pt-12">
+            <h2 class="text-2xl font-bold mb-8 text-center">Полезные материалы</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="https://dostup-world.github.io/guide/amnezia-vpn-setup-2025/" class="card-dark rounded-lg p-6 hover:border-emerald-500/50 transition-colors">
+                    <h3 class="font-bold mb-2">Amnezia VPN: альтернатива Outline</h3>
+                    <p class="text-sm text-gray-400">Создание VPN с продвинутыми протоколами обхода DPI</p>
+                </a>
+                <a href="https://dostup-world.github.io/guide/bypass-without-vpn-2025/" class="card-dark rounded-lg p-6 hover:border-emerald-500/50 transition-colors">
+                    <h3 class="font-bold mb-2">GoodbyeDPI и Zapret</h3>
+                    <p class="text-sm text-gray-400">Обход блокировок без VPN с помощью DPI-обходчиков</p>
+                </a>
+                <a href="https://dostup-world.github.io/streaming/youtube/" class="card-dark rounded-lg p-6 hover:border-emerald-500/50 transition-colors">
+                    <h3 class="font-bold mb-2">VPN для YouTube 4K</h3>
+                    <p class="text-sm text-gray-400">Оптимизация Outline VPN для стриминга YouTube</p>
+                </a>
+                <a href="https://dostup-world.github.io/devices/" class="card-dark rounded-lg p-6 hover:border-emerald-500/50 transition-colors">
+                    <h3 class="font-bold mb-2">VPN на всех устройствах</h3>
+                    <p class="text-sm text-gray-400">Подробные инструкции настройки VPN для каждой платформы</p>
+                </a>
+                <a href="https://dostup-world.github.io/guide/selection-criteria/" class="card-dark rounded-lg p-6 hover:border-emerald-500/50 transition-colors">
+                    <h3 class="font-bold mb-2">Как выбрать VPN</h3>
+                    <p class="text-sm text-gray-400">Критерии выбора между self-hosted и коммерческими VPN</p>
+                </a>
+                <a href="https://dostup-world.github.io/troubleshooting/not-working/" class="card-dark rounded-lg p-6 hover:border-emerald-500/50 transition-colors">
+                    <h3 class="font-bold mb-2">VPN не работает</h3>
+                    <p class="text-sm text-gray-400">Диагностика и решение проблем с VPN-подключениями</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-gray-700 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-gradient">Internet Security Hub</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Экспертные руководства по VPN, интернет-безопасности и обходу блокировок
+                    </p>
+                    <a href="https://t.me/SafeNetVpn_bot?start=afrrica" class="btn-primary px-4 py-2 rounded-lg text-white text-sm font-semibold inline-flex items-center">
+                        <i class="fab fa-telegram mr-2"></i>SAFENET-VPN
+                    </a>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Руководства</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="https://dostup-world.github.io/guide/vpn-fundamentals/" class="hover:text-emerald-400">Основы VPN</a></li>
+                        <li><a href="https://dostup-world.github.io/guide/amnezia-vpn-setup-2025/" class="hover:text-emerald-400">Amnezia VPN</a></li>
+                        <li><a href="https://dostup-world.github.io/guide/bypass-without-vpn-2025/" class="hover:text-emerald-400">GoodbyeDPI</a></li>
+                        <li><a href="https://dostup-world.github.io/guide/selection-criteria/" class="hover:text-emerald-400">Выбор VPN</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Устройства</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="https://dostup-world.github.io/devices/windows/" class="hover:text-emerald-400">Windows</a></li>
+                        <li><a href="https://dostup-world.github.io/devices/android/" class="hover:text-emerald-400">Android</a></li>
+                        <li><a href="https://dostup-world.github.io/devices/ios/" class="hover:text-emerald-400">iPhone/iPad</a></li>
+                        <li><a href="https://dostup-world.github.io/devices/smart-tv/" class="hover:text-emerald-400">Smart TV</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Стриминг</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="https://dostup-world.github.io/streaming/youtube/" class="hover:text-emerald-400">YouTube</a></li>
+                        <li><a href="https://dostup-world.github.io/streaming/netflix/" class="hover:text-emerald-400">Netflix</a></li>
+                        <li><a href="https://dostup-world.github.io/streaming/youtube-access/" class="hover:text-emerald-400">Доступ к YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
+                <p>&copy; 2025 Internet Security Hub. Информация носит образовательный характер.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Copy code functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('.code-block');
+            codeBlocks.forEach((block, index) => {
+                // Add copy button
+                const copyButton = document.createElement('button');
+                copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+                copyButton.className = 'absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-white p-2 rounded text-xs';
+                copyButton.style.position = 'absolute';
+                copyButton.style.top = '8px';
+                copyButton.style.right = '8px';
+                
+                block.style.position = 'relative';
+                block.appendChild(copyButton);
+                
+                copyButton.addEventListener('click', () => {
+                    const text = block.textContent.replace('', '');
+                    navigator.clipboard.writeText(text).then(() => {
+                        copyButton.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => {
+                            copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+                        }, 2000);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+

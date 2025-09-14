@@ -1,0 +1,5 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://dostup-plus.github.io/sitemap.xml
+
